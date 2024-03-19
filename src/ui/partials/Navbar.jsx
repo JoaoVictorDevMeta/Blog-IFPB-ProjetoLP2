@@ -2,7 +2,7 @@ import React from 'react'
 
 const Navbar = () => {
   return (
-  <div>
+  <header>
     <nav className="navbar navbar-expand-lg navbar-light bg-none p-4 px-5 justify-content-between gap-5">
       <ul className="navbar-nav gap-5">
         <li className="nav-item active">
@@ -20,10 +20,10 @@ const Navbar = () => {
           <input type="text" className='nav-bar-input' placeholder='Buscar Assunto...'/>
           <button class="btn button-outline" type="submit">Search</button>
         </form>
-        <a href="/login" className='nav-link ps-5'>Login</a>
+        <a href="/login" className='nav-link'>Login</a>
       </div>
     </nav>
-  </div>
+  </header>
   )
 }
 
