@@ -1,0 +1,32 @@
+
+
+.result{
+    max-width: 850px;
+    width: 100%;
+}
+.result > .image{
+    width: 310px;
+    position: relative;
+}
+.image > img{
+    width: 100%;
+    height: 100%;
+    filter: brightness(0.5);
+}
+.image > .category{
+    position: absolute;
+    z-index: 2;
+    background: var(--primary);
+    color: white;
+    width: 250px;
+    bottom: 10px;
+    left: 170px;
+}
+.result > .text{
+    width: calc(100% - 310px);
+    padding-bottom: 40px;
+    min-width: 300px;
+}
+.search-container{
+    background: var(--primary);
+}

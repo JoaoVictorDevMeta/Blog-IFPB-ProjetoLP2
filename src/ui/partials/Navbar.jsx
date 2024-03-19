@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className='navbar-nav pe-5'>
         <form action="/search" role="search" className='d-flex flex-wrap gap-5 pe-5'>
           <input type="text" className='nav-bar-input' placeholder='Buscar Assunto...'/>
-          <button class="btn button-outline" type="submit">Search</button>
+          <button className="btn button-outline" type="submit">Buscar</button>
         </form>
         <a href="/login" className='nav-link'>Login</a>
       </div>
