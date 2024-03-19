@@ -7,6 +7,7 @@ import Register from "./pages/register/Register"
 import Profile from "./pages/profile/Profile"
 import Blog from "./pages/blog/Blog"
 import Search from "./pages/search/Search";
+import Navbar from "./ui/partials/Navbar"
 
 // Components and Hooks
 import PrivateRoute from "./data/hooks/auth/PrivateRoute";
