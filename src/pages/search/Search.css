@@ -1,5 +1,3 @@
-
-
 .result{
     max-width: 850px;
     width: 100%;
@@ -31,10 +29,10 @@
     background: var(--primary);
 }
 .search-input{
-    width: 80%;
+    width: calc(100% - 280px);
     font-size: 24px !important;
     color: white !important;
-    border-bottom: 2px solid white !important;
+    border-bottom: 2px solid white !important; padding-left: 50px !important;
 }
 .search-input:focus-visible{
     outline: none;
@@ -47,4 +45,45 @@
 .btn-white:hover{
     background-color: white !important;
     color: var(--primary) !important;
+}
+.filter-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+  } 
+  @media (min-width: 992px) {
+    .filter-container {
+      position: static;
+      float: right;
+      width: 25%; 
+    }
+  }
+  @media (max-width: 1300px) { 
+    .filter-container {
+      width: 100%;
+      position: relative;
+    }
+  
+    .items-container {
+      width: 100%;
+    }
+  }
+.filter-container ul{
+    padding: 40px 40px 70px;
+    background-color: var(--secondary);
+    list-style: none;
+}
+.filter-container ul >li {border-bottom: 2px solid var(--secondary);}
+.filter-container ul > li > a{
+    color: white;
+    text-decoration: none;
+}
+.filter-container ul > li:hover{
+    border-bottom: 2px solid white;
+}
+.page-link{
+    color: black !important; background-color: white !important; transition: 0.2s !important;
+}
+.page-link:hover{
+    color: white !important; background-color: var(--primary) !important;
 }
