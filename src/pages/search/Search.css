@@ -20,7 +20,7 @@
     color: white;
     width: 250px;
     bottom: 10px;
-    left: 170px;
+    left: 140px;
 }
 .result > .text{
     width: calc(100% - 310px);
@@ -29,4 +29,22 @@
 }
 .search-container{
     background: var(--primary);
+}
+.search-input{
+    width: 80%;
+    font-size: 24px !important;
+    color: white !important;
+    border-bottom: 2px solid white !important;
+}
+.search-input:focus-visible{
+    outline: none;
+    border-bottom: 3px solid var(--bs-secondary-bg) !important;
+}
+.btn-white{
+    color: white !important;
+    border: 2px solid white !important;
+}
+.btn-white:hover{
+    background-color: white !important;
+    color: var(--primary) !important;
 }
