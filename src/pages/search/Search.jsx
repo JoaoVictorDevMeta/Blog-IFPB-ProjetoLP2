@@ -14,18 +14,18 @@ const Search = () => {
   return (
     <div>
       <div className='container-xxl search-container mb-5 py-4 px-5 mt-5'>
-        <form className='d-flex flex-wrap gap-5 pe-5 px-5'>
+        <form className='d-flex flex-wrap gap-5'>
           <label htmlFor="search" className='fs-1 position-absolute'>
           <IoMdSearch color='white' className='mb-3'/>
           </label>
           <input type="text" id="search" className='search-input nav-bar-input' />
           <button className='btn btn-white button-outline fs-4'>Buscar</button>
         </form>
-        <p className='fs-5 pt-4'>Buscando Resultados para: <span></span></p>
+        <p className='fs-5 pt-4' style={{color: "white"}}>Buscando Resultados para: <span></span></p>
       </div>
 
       <section className='result-container container-xxl bg-white p-5 mb-5 position-relative'>
-        <div className='filter-container'>
+        <div className='filter-container mb-5'>
           <h1>Filtros</h1>
           <ul className=''>
             {filters.map((filter, i)=>{
@@ -37,6 +37,7 @@ const Search = () => {
         </div>
 
         <div className='items-container'>
+          <h1 className='pb-5'>Resultados:</h1>
           {blogs.map((data, i) => {
             return <BlogResult key={i} title={data.title} description={data.description} image={data.image} category={data.category}/>
           })}

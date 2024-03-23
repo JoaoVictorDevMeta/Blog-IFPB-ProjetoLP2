@@ -1,9 +1,43 @@
-import React from 'react'
+import {useState} from 'react'
 import './Register.css'
+import { useForm } from "react-hook-form"
+import Swal from 'sweetalert2'
+import {useNavigate} from 'react-router-dom';
+
+import InputField from '../../ui/components/Input'
+import SelectField from '../../ui/components/Select'
+import { Cursos } from './Cursos'
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [curso, setCurso] = useState("");
+  const [cursoError, setCursoError] = useState('');
+
+  const { 
+    register,
+    handleSubmit,
+    formState: { errors, isValid},
+  } = useForm({ mode: "onBlur"})
+
+  const registerUser = async ( data ) => {
+    if (!curso) {
+      setCursoError('Coloque seu Curso!');
+      return;
+    }
+    console.log(data)
+    console.log(curso)
+    await Swal.fire({
+      title: 'Cadastrado com Sucesso',
+      text: 'Seja bem vindo a nossa comunidade!',
+      icon: 'success',
+      confirmButtonText: 'Vamos!'
+    }).then(() => {
+      navigate('/');
+    })
+  }
+
   return (
-    <section className='register-container container-xl d-flex p-0 mt-5' >
+    <section className='register-container container-xl d-flex p-0' >
       <div className='information p-5 position-relative'>
         <div className='p-5 text-center '>
           <h2 className='fs-1 fw-bold pb-4'>Seja Bem Vindo!</h2>
@@ -19,51 +53,67 @@ const Register = () => {
         </div>
       </div>
       <div className='login-form p-5 text-center d-flex justify-content-center'>
-        <form className="d-flex flex-column">
+        <form className="d-flex flex-column" onSubmit={handleSubmit(registerUser)}>
           <h1 className='fs-1'>CADASTRO</h1>
           <p className='fs-4' style={{color: "#393646"}}>Cadastre-se e seja bem vindo a nossa comunidade</p>
 
           <div className="form-group pt-3">
-            <div className='input-text text-start'>
-              <label htmlFor="nome" className='form-label'>Nome</label>
-              <input 
-                type="text" 
-                id="nome" 
-                placeholder="Seu Nome"
-                className='me-2 py-2 px-3 fs-5' 
+            <InputField 
+              label="Nome"
+              type="text"
+              id="nome"
+              placeholder="Seu Nome"
+              className='me-2 py-2 px-3 fs-5'
+              registerOptions={register("nome",
+              { required: true, minLength: 3,
+                validate: {
+                  noSpecialChars: value => /^[a-zA-Z0-9 ]*$/.test(value) || 'No special characters allowed'
+              }})}
+              errors={errors.nome}
+            />
+
+            <div className="w-100 text-start">
+              <label htmlFor="seletor" className='form-label'>Curso</label>
+              <SelectField 
+                options={Cursos}
+                defaultValue={{}}
+                onChange={val => {
+                  setCurso(val.value);
+                  setCursoError('');
+                }}
               />
-            </div>
-            <div className='input-text text-start'>
-              <label htmlFor="class" className='form-label ms-2'>Curso</label>
-              <input 
-                type="text" 
-                id="class" 
-                placeholder="Curso do IFPB"
-                className='ms-2 py-2 px-3 fs-5' 
-              />
+              {cursoError && <small>{cursoError}</small>}
             </div>
           </div>
 
-          <div className='input-text text-start'>
-              <label htmlFor="email" className='form-label'>Email Academico</label>
-              <input 
-                type="text" 
-                id="email" 
-                placeholder="Seu email academico"
-                className=' py-2 px-3 fs-5' 
-              />
-          </div>
-          <div className='input-text text-start'>
-              <label htmlFor="password" className='form-label'>Senha</label>
-              <input 
-                type="password" 
-                id="password" 
-                placeholder="Sua Senha"
-                className=' py-2 px-3 fs-5' 
-              />
-          </div>
+          <InputField 
+            label="Email"
+            type="email"
+            id="email"
+            placeholder="Seu Email"
+            className=' py-2 px-3 fs-5'
+            registerOptions={register("email", {
+              required: true,
+            })}
+            errors={errors.email}
+          />
+          <InputField 
+            label="Sua Senha"
+            type="password"
+            id="password"
+            placeholder="Sua Senha"
+            className=' py-2 px-3 fs-5'
+            registerOptions={register("password",
+            { required: true,
+              minLength: 6,
+              validate: {
+                hasNumber: value => /\d/.test(value) || 'A senha deve conter pelo menos um número',
+                hasSpecialChar: value => /[!@#$%^&*(),.?":{}|<>]/.test(value) || 'A senha deve conter pelo menos um caractere especial'
+            }})}
+            errors={errors.password}
+          />
 
-          <button className="btn button-outline mx-5 fs-4 mb-3" >
+          <button type='submit' className="btn button-outline mx-5 fs-4 mb-3" >
             Cadastrar
           </button>
         </form>
