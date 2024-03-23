@@ -6,10 +6,10 @@ const Profile = () => {
     <section className="container-xxl ">
       <div className=''>
         <div className='image'>
-
+          
         </div>
         <div className='user-info'>
-          
+          <h1>Raphael</h1>
         </div>
       </div>
 
