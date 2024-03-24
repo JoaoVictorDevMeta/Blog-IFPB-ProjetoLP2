@@ -11,6 +11,10 @@ const Login = () => {
     formState: { errors, isValid},
   } = useForm({ mode: "onBlur"})
 
+  const loginUser = async (data) => {
+    console.log(data)
+  }
+
   return (
     <section className='register-container container-xl d-flex p-0'>
       <div className='information p-5 position-relative'>
@@ -25,7 +29,7 @@ const Login = () => {
         </div>
       </div>
       <div className='login-form login p-5 text-center d-flex justify-content-center'>
-        <form className="d-flex flex-column">
+        <form className="d-flex flex-column" onSubmit={handleSubmit(loginUser)}>
           <h1 className='fs-1'>LOGIN</h1>
           <p className='fs-4' style={{color: "#393646"}}>Bem-vindo de volta, estudante!</p>
 
@@ -46,7 +50,7 @@ const Login = () => {
             type="password"
             id="password"
             placeholder="Senha"
-            className='me-2 py-2 px-3 fs-5'
+            className=' py-2 ps-3 fs-5 pass'
             registerOptions={register("password", {
               required: true,
             })}

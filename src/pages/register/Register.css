@@ -44,3 +44,6 @@
 .link-info{ left: 0; bottom: 50px;}
 .link-info a{ color: white; text-decoration: none; transition: 0.2s;}
 .link-info a:hover{ opacity: 0.7;}
+.pass{
+    padding-right: 60px;
+}

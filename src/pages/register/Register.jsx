@@ -102,7 +102,7 @@ const Register = () => {
             type="password"
             id="password"
             placeholder="Sua Senha"
-            className=' py-2 px-3 fs-5'
+            className=' py-2 ps-3 fs-5 pass'
             registerOptions={register("password",
             { required: true,
               minLength: 6,

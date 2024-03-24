@@ -8,6 +8,7 @@ import Profile from "./pages/profile/Profile"
 import Blog from "./pages/blog/Blog"
 import Search from "./pages/search/Search";
 import Navbar from "./ui/partials/Navbar"
+import Users from "./pages/users/Users";
 
 // Components and Hooks
 import PrivateRoute from "./data/hooks/auth/PrivateRoute";
@@ -24,6 +25,7 @@ function App() {
           <Route path="/blog" element={<Blog/>}/>
           <Route path="/search" element={<Search/>}/>
           <Route path="/profile" element={<Profile/>}/>
+          <Route path="/students" element={<Users/>}/>
           <Route element={<PrivateRoute/>}>
           </Route>
         </Routes>
