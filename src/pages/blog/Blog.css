@@ -147,8 +147,7 @@ body {
     margin: 7px 0;
 }
 .autor{    width: 70%;
-    min-width: 300px;
-    padding-left: 50px;}
+    min-width: 300px;}
 .autor .autor-descricao {
     font-family: "Red Hat Display", sans-serif;
     font-size: 22px;
