@@ -59,11 +59,11 @@ body {
 
 .conteudo-card {
     padding: 10px 0;
-    max-width: 300px;
-    width: 70%;
+    max-width: 500px;
+    width: 100%;
     display: flex;
 }
-
+.blog-information > ul{ list-style: none;}
 .conteudo-card .card-image {
     max-width: 70px;
     height: 70px;
@@ -110,20 +110,14 @@ body {
 }
 
 .conteudo-texto {
-    font-family: "Red Hat Display", sans-serif;
     justify-content: center;
 }
 
 .conteudo-texto .texto {
-    font-family: "Red Hat Display", sans-serif;
-    margin-left: 2.5%;
-    margin-top: 0;
-    padding-bottom: 5px;
     font-size: 25px;
 }
 
 .conteudo-titulo {
-    font-family: "Red Hat Display", sans-serif;
     margin-left: 2.5%;
     font-size: 40px;
 }

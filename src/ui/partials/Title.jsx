@@ -2,7 +2,7 @@
 function Title(props){
 
     return(
-        <h1 className="conteudo-title fs-1">{props.title}</h1>
+        <h1 className="conteudo-title fs-1 px-4">{props.title}</h1>
     );
 }
 
