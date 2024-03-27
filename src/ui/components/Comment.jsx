@@ -42,7 +42,7 @@ const Comment = ({comment, nodeI = 1}) => {
                     {isFocused && (
                         <div className='position-absolute end-0 bottom-0 m-2'>
                         <Action
-                            className='btn btn-outline'
+                            className='btn-sample btn-cancel'
                             handleClick={() => {
                                 setIsFocused(false);
                                 setinput('');
@@ -50,7 +50,7 @@ const Comment = ({comment, nodeI = 1}) => {
                         >Cancelar
                         </Action>
                         <Action
-                            className='btn btn-outline'
+                            className='btn-sample btn-save'
                             onClick={onAddComment}
                         >Enviar
                         </Action>
@@ -60,7 +60,7 @@ const Comment = ({comment, nodeI = 1}) => {
             </form>
         ) : ( <div className='comment-container d-flex my-4'>
             <img src={comment.image} alt=""  className='user-image'/>
-            <div className='comment-content'>
+            <div className='comment-content ms-3'>
                 <div className='d-flex flex-wrap pb-2' style={{alignItems: "center"}}>
                     <h3 className='mb-0'>{comment.title}</h3>
                     <span className='ps-3'>1 semana atrás</span>
@@ -72,12 +72,12 @@ const Comment = ({comment, nodeI = 1}) => {
                     {editMode ? (
                         <>
                             <Action
-                                className='btn-icon'
+                                className='btn-sample btn-save'
                                 handleClick={onAddComment}
                             >Salvar
                             </Action>
                             <Action
-                                className='btn-icon'
+                                className='btn-sample'
                                 handleClick={()=>{setEditMode(false)}}
                             >Cancelar
                             </Action>
@@ -117,11 +117,11 @@ const Comment = ({comment, nodeI = 1}) => {
                 <div className='ps-5'>
                     <textarea className="input-comment" autoFocus onChange={(e) => setinput(e.target.value)}/>
                     <Action
-                        className='btn btn-outline'
+                        className='btn-sample'
                         onClick={()=>{}}
                     >Responder</Action>
                     <Action
-                        className='btn btn-outline'
+                        className='btn-sample'
                         handleClick={()=>{setShowInput(false)}}
                     >Cancelar</Action>
                 </div>

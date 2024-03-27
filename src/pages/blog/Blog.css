@@ -116,7 +116,27 @@
     height: 60px;
     border-radius: 100px;
     object-fit: cover;
-    margin-right: 30px;
+}
+.btn-sample{
+    border-radius: 100px;
+    padding: 5px 20px;
+    border: none;
+    margin: 5px;
+}
+p:focus-visible, textarea:focus-visible{
+    outline: 1px solid black;
+    border-bottom: 3px solid var(--primary);
+}
+.btn-save{
+    background: var(--primary);
+    color: white;
+}
+.btn-cancel{
+    background-color: #d6cda4;
+    color: rgb(51, 51, 51);
+}
+.btn-sample:hover{
+    outline: 1px solid black;
 }
 .btn-icon{
     background: none;
@@ -143,8 +163,8 @@
     color: black;
 }
 .comment-container > .focused{
-    height: 120px;
-    padding-bottom: 30px;
+    height: 140px;
+    padding-bottom: 50px;
 }
 .btn-icon:hover{
     color: black;
