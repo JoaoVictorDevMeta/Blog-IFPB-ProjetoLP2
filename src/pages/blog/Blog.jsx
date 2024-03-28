@@ -4,14 +4,14 @@ import { FaRegCommentAlt } from "react-icons/fa";
 import { IoShareSocial } from "react-icons/io5";
 import { FaRegHeart } from "react-icons/fa";
 
-import Categoria from '../../ui/partials/Categoria'
-import Title from '../../ui/partials/Title'
-import Titulo from '../../ui/partials/Titulo'
-import Subtitle from '../../ui/partials/Subtitle'
-import Texto from '../../ui/partials/Texto'
-import Imagem from '../../ui/partials/Imagem'
-import Autor from '../../ui/partials/Autor'
-import CommentSection from '../../ui/partials/CommentSection';
+import Categoria from '../../ui/partials/Blog/Categoria'
+import Title from '../../ui/partials/Blog/Title'
+import Titulo from '../../ui/partials/Blog/Titulo'
+import Subtitle from '../../ui/partials/Blog/Subtitle'
+import Texto from '../../ui/partials/Blog/Texto'
+import Imagem from '../../ui/partials/Blog/Imagem'
+import Autor from '../../ui/partials/Blog/Autor'
+import CommentSection from '../../ui/partials/Blog/CommentSection';
 
 const Blog = () => {
   return (

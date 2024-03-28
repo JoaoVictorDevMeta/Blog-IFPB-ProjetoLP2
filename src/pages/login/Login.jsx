@@ -1,8 +1,9 @@
 import React from 'react'
 import './LoginPage.css'
 import { useForm } from "react-hook-form"
+import { loginUser } from '../../data/services/login/auth'
 
-import InputField from '../../ui/components/Input'
+import InputField from '../../ui/components/inputs/Input'
 
 const Login = () => {
   const { 
@@ -10,10 +11,6 @@ const Login = () => {
     handleSubmit,
     formState: { errors, isValid},
   } = useForm({ mode: "onBlur"})
-
-  const loginUser = async (data) => {
-    console.log(data)
-  }
 
   return (
     <section className='register-container container-xl d-flex p-0'>

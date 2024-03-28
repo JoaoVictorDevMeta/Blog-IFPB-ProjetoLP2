@@ -7,7 +7,7 @@ import Register from "./pages/register/Register"
 import Profile from "./pages/profile/Profile"
 import Blog from "./pages/blog/Blog"
 import Search from "./pages/search/Search";
-import Navbar from "./ui/partials/Navbar"
+import Header from "./ui/components/header/Header"
 import Users from "./pages/users/Users";
 
 // Components and Hooks
@@ -16,7 +16,7 @@ import PrivateRoute from "./data/hooks/auth/PrivateRoute";
 function App() {
   return (
     <>
-      <Navbar/>
+      <Header/>
       <main className="">
         <Routes>
           <Route path="/" element={<Home/>}/>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Comment from '../components/Comment'
+import Comment from '../../components/Comment'
 import {comments} from './comments'
 
 const CommentSection = () => {

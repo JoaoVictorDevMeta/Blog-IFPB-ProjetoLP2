@@ -1,9 +1,8 @@
 import { useState, useRef, useEffect } from 'react'
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
-import { IoMdArrowDropdown } from "react-icons/io";
 
-import Action from './Action';
+import Action from './buttons/Action';
 
 const Comment = ({comment, nodeI = 1}) => {
     const [input, setinput] = useState("")
@@ -23,7 +22,7 @@ const Comment = ({comment, nodeI = 1}) => {
     }
 
     const onAddComment = () => {
-
+        
     }
 
   return (
