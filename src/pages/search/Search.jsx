@@ -18,7 +18,7 @@ const Search = () => {
           <label htmlFor="search" className='fs-1 position-absolute'>
           <IoMdSearch color='white' className='mb-3'/>
           </label>
-          <input type="text" id="search" className='search-input nav-bar-input' />
+          <input type="text" id="search" name='busca' className='search-input nav-bar-input' />
           <button className='btn btn-white button-outline fs-4'>Buscar</button>
         </form>
         <p className='fs-5 pt-4' style={{color: "white"}}>Buscando Resultados para: <span></span></p>
