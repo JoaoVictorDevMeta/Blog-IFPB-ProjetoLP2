@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 
-import Action from './buttons/Action';
+import Button from './buttons/Button';
 
 const Comment = ({comment, nodeI = 1}) => {
     const [input, setinput] = useState("")
@@ -40,19 +40,19 @@ const Comment = ({comment, nodeI = 1}) => {
                     />
                     {isFocused && (
                         <div className='position-absolute end-0 bottom-0 m-2'>
-                        <Action
-                            className='btn-sample btn-cancel'
+                        <Button
+                            type='cancel'
                             handleClick={() => {
                                 setIsFocused(false);
                                 setinput('');
                             }}
                         >Cancelar
-                        </Action>
-                        <Action
-                            className='btn-sample btn-save'
+                        </Button>
+                        <Button
+                            type='save'
                             onClick={onAddComment}
                         >Enviar
-                        </Action>
+                        </Button>
                         </div>
                     )}
                 </div>
@@ -68,43 +68,43 @@ const Comment = ({comment, nodeI = 1}) => {
                     {comment.content}
                 </p>
                 <div className='comment-actions'>
-                    {editMode ? (
+                    {editMode || showInput ? ( !showInput &&
                         <>
-                            <Action
-                                className='btn-sample btn-save'
+                            <Button
+                                type='save'
                                 handleClick={onAddComment}
                             >Salvar
-                            </Action>
-                            <Action
-                                className='btn-sample'
+                            </Button>
+                            <Button
+                                type='cancel'
                                 handleClick={()=>{setEditMode(false)}}
                             >Cancelar
-                            </Action>
+                            </Button>
                         </>
                     ) : (
                         <>
-                        { (comment?.childs[0]?.id && !showInput) && <Action
-                            className='btn-icon'
+                        { (comment?.childs[0]?.id && !showInput) && <Button
+                            type='icon'
                             handleClick={()=>{setExpand(!expand)}}
                         >{
                             expand ? (<IoIosArrowUp /> ) : (<IoIosArrowDown />)
                         }
-                        </Action>}
-                        <Action
-                            className='btn-icon'
+                        </Button>}
+                        <Button
+                            type='icon'
                             handleClick={()=>{newComment()}}
                         >Responder
-                        </Action>
-                        <Action
-                            className='btn-icon'
+                        </Button>
+                        <Button
+                            type='icon'
                             handleClick={()=>{setEditMode(true)}}
                         >Editar
-                        </Action>
-                        <Action
-                            className='btn-icon'
+                        </Button>
+                        <Button
+                            type='icon'
                             onClick={()=>{}}
                         >Deletar
-                        </Action>
+                        </Button>
                         </>
                     )}
                 </div>
@@ -115,14 +115,14 @@ const Comment = ({comment, nodeI = 1}) => {
             {showInput && (
                 <div className='ps-5'>
                     <textarea className="input-comment" autoFocus onChange={(e) => setinput(e.target.value)}/>
-                    <Action
-                        className='btn-sample'
+                    <Button
+                        type='save'
                         onClick={()=>{}}
-                    >Responder</Action>
-                    <Action
-                        className='btn-sample'
+                    >Responder</Button>
+                    <Button
+                        type='cancel'
                         handleClick={()=>{setShowInput(false)}}
-                    >Cancelar</Action>
+                    >Cancelar</Button>
                 </div>
             )}
             {comment?.childs?.map((cmt) => {

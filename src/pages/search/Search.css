@@ -42,14 +42,6 @@
     border-bottom: 3px solid var(--bs-secondary-bg) !important;
 }
 .result .text{padding-left: 1.5rem;}
-.btn-white{
-    color: white !important;
-    border: 2px solid white !important;
-}
-.btn-white:hover{
-    background-color: white !important;
-    color: var(--primary) !important;
-}
 .filter-container {
     position: absolute;
     top: 0;

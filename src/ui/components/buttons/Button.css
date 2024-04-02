@@ -1,0 +1,43 @@
+.btn-outline, .btn-outline-white{
+    transition: 0.2s !important;
+    border: 1px solid var(--primary) !important;
+}
+.btn-outline-white{
+    color: white !important;
+    border: 2px solid white !important;
+}
+.btn-cancel, .btn-save, .btn-sample{
+    border-radius: 100px;
+    padding: 5px 20px;
+    border: none;
+    margin: 5px;
+}
+.btn-save{
+    background: var(--primary);
+    color: white;
+}
+.btn-cancel{
+    background-color: #d6cda4;
+    color: rgb(51, 51, 51);
+}
+.btn-icon{
+    background: none;
+    color: var(--primary);
+    font-weight: 500;
+    border: none;
+    padding: 0px 10px;
+}
+.btn-icon:hover{
+    color: black;
+}
+.btn-outline:hover{
+    background-color: var(--primary) !important;
+    color: white !important;
+}
+.btn-save:hover, .btn-cancel:hover, .btn-sample:hover{
+    outline: 1px solid black;
+}
+.btn-outline-white:hover{
+    background-color: white !important;
+    color: var(--primary) !important;
+}

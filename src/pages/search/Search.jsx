@@ -1,8 +1,10 @@
 import { blogs } from './db.json'
 import { useState, useEffect } from 'react'
-import BlogResult from '../../ui/components/BlogResult'
 import { IoMdSearch } from "react-icons/io";
 import './Search.css'
+
+import BlogResult from '../../ui/components/BlogResult'
+import Button from '../../ui/components/buttons/Button'
 
 const Search = () => {
   const [filter, setFilter] = useState("")
@@ -19,7 +21,7 @@ const Search = () => {
           <IoMdSearch color='white' className='mb-3'/>
           </label>
           <input type="text" id="search" name='busca' className='search-input nav-bar-input' />
-          <button className='btn btn-white button-outline fs-4'>Buscar</button>
+          <Button type='outline-white' className='fs-4'>Buscar</Button>
         </form>
         <p className='fs-5 pt-4' style={{color: "white"}}>Buscando Resultados para: <span></span></p>
       </div>

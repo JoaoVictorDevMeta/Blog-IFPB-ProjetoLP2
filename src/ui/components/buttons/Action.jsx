@@ -1,8 +1,11 @@
 import React from 'react'
+import './Button.css';
 
-const Action = ({ handleClick, children, className }) => {
+const Action = ({ handleClick, children, type }) => {
   return (
-    <button className={className} onClick={handleClick}>
+    <button 
+      className={((type==='outline' || type==='outline-white') ? 'btn' : '') + ` btn-${type} ${className}`}  
+      onClick={handleClick}>
         {children}
     </button>
   )

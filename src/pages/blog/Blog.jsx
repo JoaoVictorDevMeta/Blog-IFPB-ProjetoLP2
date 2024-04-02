@@ -12,6 +12,7 @@ import Texto from '../../ui/partials/Blog/Texto'
 import Imagem from '../../ui/partials/Blog/Imagem'
 import Autor from '../../ui/partials/Blog/Autor'
 import CommentSection from '../../ui/partials/Blog/CommentSection';
+import Button from '../../ui/components/buttons/Button'
 
 const Blog = () => {
   return (
@@ -32,13 +33,13 @@ const Blog = () => {
     <div className='blog-information container-xxl pb-5'>
       <ul className='d-flex gap-5 pt-4 ps-0'>
         <li>
-          <a href="" className='btn button-outline'><FaRegCommentAlt className='fs-4 me-2'/> 3</a>
+          <a href="" className='btn btn-outline'><FaRegCommentAlt className='fs-4 me-2'/> 3</a>
         </li>
         <li>
-          <a href="" className='btn button-outline'><IoShareSocial className='fs-4 me-2'/> Compartilhar</a>
+          <a href="" className='btn btn-outline'><IoShareSocial className='fs-4 me-2'/> Compartilhar</a>
         </li>
         <li>
-          <button className='btn button-outline'><FaRegHeart className='fs-4 me-2' /> 54</button>
+          <Button type='outline'><FaRegHeart className='fs-4 me-2'/> 54</Button>
         </li>
       </ul>
     </div>

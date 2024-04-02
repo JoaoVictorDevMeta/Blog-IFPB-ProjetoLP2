@@ -67,14 +67,6 @@ input:focus-visible{
   font-size: 20px;
   padding: 5px;
 }
-.button-outline{
-  transition: 0.2s;
-  border: 1px solid var(--primary);
-}
-.button-outline:hover{
-  background-color: var(--primary);
-  color: white;
-}
 .navbar-nav{
   justify-content: center;
 }
