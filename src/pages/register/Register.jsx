@@ -1,19 +1,18 @@
 import {useState} from 'react'
 import './Register.css'
 import { useForm } from "react-hook-form"
-import { useNavigate } from 'react-router-dom'
 
 import InputField from '../../ui/components/inputs/Input'
+import Button from '../../ui/components/buttons/Button'
 import SelectField from '../../ui/components/inputs/Select'
-import { verifyCode, sendUser } from '../../data/services/register/register'
+import { sendUser } from '../../data/services/register/register'
 import { Cursos } from './Cursos'
-import Swal from 'sweetalert2'
 
 const Register = () => {
-  const navigate = useNavigate();
   const [curso, setCurso] = useState("");
   const [cursoError, setCursoError] = useState('');
-  const [step, setStep] = useState(1);
+  const [sendResponse, setSendResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const { 
     register,
@@ -22,38 +21,23 @@ const Register = () => {
   } = useForm({ mode: "onBlur"})
 
   const registerUser = async (data) => {
+    setLoading(true)
+
     if (!curso) {
       setCursoError('Coloque seu Curso!');
       return;
     }
-    sendUser(data).then(() => {
-      Swal.fire({
-        icon: "success",
-        title: "Valide o Código que irá chegar em sua caixa de Email",
-        showConfirmButton: false,
-        timer: 1500
-      })
-      setStep(2);
-    })
-  }
+    data = {'curso': curso, ...data};
 
-  const sendCode = async (data) => {
-    verifyCode(data).then(() => {
-      Swal.fire({
-        icon: "success",
-        title: "Cadastrado com Sucesso",
-        text: "Seja bem vindo a nossa comunidade!",
-        confirmButtonText: "Vamos!"
-    }).then(() => {
-      navigate('/login');
-    });
-    }).catch((err) => {
-      Swal.fire({
-        icon: "error",
-        title: "Codigo Incorreto",
-        text: "Verifique e tente novamente",
-        confirmButtonText: "Continuar"
-      })
+    sendUser(data)
+    .then((response) => {
+      //console.log(response)
+      setSendResponse(response);
+      setLoading(false)
+    })
+    .catch((error) => {
+      setSendResponse(error);
+      setLoading(false)
     })
   }
 
@@ -74,7 +58,7 @@ const Register = () => {
         </div>
       </div>
       <div className='login-form p-5 text-center d-flex justify-content-center'>
-        { step === 1 ? (<form className="d-flex flex-column" onSubmit={handleSubmit(registerUser)}>
+        <form className="d-flex flex-column" onSubmit={handleSubmit(registerUser)}>
           <h1 className='fs-1'>CADASTRO</h1>
           <p className='fs-4' style={{color: "#393646"}}>Cadastre-se e seja bem vindo a nossa comunidade</p>
 
@@ -133,24 +117,28 @@ const Register = () => {
             }})}
             errors={errors.password}
           />
-
-          <button type='submit' className="btn button-outline mx-5 fs-4 mb-3" >
-            Cadastrar
-          </button>
-        </form>) : (
-        <form className='d-flex flex-column gap-5' onSubmit={handleSubmit(sendCode)}>
-          <h2>Acabamos de enviar um email de Confirmação!</h2>
-          <p className='fs-4'>
-            Um código de verificação foi enviado para o seu gmai, verifique as caixas de mensagens bem como a de spam. O código deve chegar em alguns minutos, fique no aguardo
-          </p>
-          <input type="text" />
-          <button className="btn button-outline mx-5 fs-3 mb-3">
-            Validar
-          </button>
-          <button className="btn button-outline mx-5 fs-5 mb-3" type='submit'>
-            Enviar Novamente
-          </button>
-        </form>)}
+          <div className='w-100'>
+            {sendResponse?.status == 201 && (
+              <div className="alert alert-success" role="alert">
+                Email de Verificação Enviado, Ir para <a href='/login'>Login</a>
+              </div>
+            )}
+            {sendResponse?.status == 400 && (
+              <div className="alert alert-warning" role="alert">
+                Falha! Esse email ja está cadastrado!
+              </div>
+            )}
+            {sendResponse?.status != 400 && sendResponse?.status != 201 && sendResponse && (
+              <div className="alert alert-danger" role="alert">
+                Algo deu Errado! Tente novamente
+              </div>
+            )}
+          
+            <Button type='outline' className="btn button-outline fs-4 mb-3 w-100" >
+              {loading ? '...' : 'Cadastrar'}
+            </Button>
+          </div>
+        </form>
       </div>
     </section>
   )

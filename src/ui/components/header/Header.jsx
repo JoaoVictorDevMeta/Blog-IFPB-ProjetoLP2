@@ -1,10 +1,52 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { FiMenu } from "react-icons/fi";
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../buttons/Button';
 
 const Navbar = () => {
+  const navigate = useNavigate()
   const [menu, setMenu] = useState(false)
+  const [userLogged, setUserLogged] = useState(false)
+
+  useEffect(() => {
+    const persistedState = localStorage.getItem('persist:root');
+    if (persistedState) {
+      const state = JSON.parse(persistedState);
+      const user = state.user;
+      if (user) {
+        fetch(`/auth/verify/${user.id}`)
+        .then(response => {
+          if (response.ok) {
+            setUserLogged(true);
+          } else {
+            setUserLogged(false);
+          }
+        })
+        .catch(e => {
+          setUserLogged(false);
+        });
+      }
+    }
+  }, []);
+
+  async function handleLogout(){
+    await fetch('http://localhost:3000/auth/logout',{
+      method: 'POST',
+      credentials: 'include', 
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Logout failed');
+      }
+      localStorage.removeItem('persist:root')
+      setUserLogged(false)
+      navigate('/')
+    })
+    .catch(e => {
+      console.error(e);
+    });
+  }
 
   return (
   <header className='d-flex flex-wrap py-4'>
@@ -33,7 +75,13 @@ const Navbar = () => {
             Buscar
           </Button>
         </form>
-        <a href="/login" className='nav-link'>Login</a>
+        { userLogged ? (
+          <Button type='outline' handleClick={handleLogout}>
+            Logout
+          </Button>
+        ) : (
+          <a href="/login" className='nav-link'>Login</a>
+        )}
       </div>
     </nav>
   </header>

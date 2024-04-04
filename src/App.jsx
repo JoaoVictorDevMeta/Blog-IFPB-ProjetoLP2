@@ -9,6 +9,7 @@ import Blog from "./pages/blog/Blog"
 import Search from "./pages/search/Search";
 import Header from "./ui/components/header/Header"
 import Users from "./pages/users/Users";
+import EmailVerify from "./pages/EmailVerify/EmailVerify";
 
 // Components and Hooks
 import PrivateRoute from "./data/hooks/auth/PrivateRoute";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/search" element={<Search/>}/>
           <Route path="/profile" element={<Profile/>}/>
           <Route path="/students" element={<Users/>}/>
+          <Route path="/auth/:id/verify/:token" element={<EmailVerify/>}/>
           <Route element={<PrivateRoute/>}>
           </Route>
         </Routes>

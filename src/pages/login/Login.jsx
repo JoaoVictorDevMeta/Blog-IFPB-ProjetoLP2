@@ -1,16 +1,33 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './LoginPage.css'
 import { useForm } from "react-hook-form"
 import { loginUser } from '../../data/services/login/auth'
+import { useNavigate } from 'react-router-dom'
 
 import InputField from '../../ui/components/inputs/Input'
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
+
   const { 
     register,
     handleSubmit,
     formState: { errors, isValid},
   } = useForm({ mode: "onBlur"})
+
+  const login = async (data) => {
+    setLoading(true)
+    loginUser(data)
+    .then((response) => {
+      navigate('/')
+      setLoading(false)
+    })
+    .catch((error) => {
+      console.log(error)
+      setLoading(false)
+    })
+  }
 
   return (
     <section className='register-container container-xl d-flex p-0'>
@@ -26,7 +43,7 @@ const Login = () => {
         </div>
       </div>
       <div className='login-form login p-5 text-center d-flex justify-content-center'>
-        <form className="d-flex flex-column" onSubmit={handleSubmit(loginUser)}>
+        <form className="d-flex flex-column" onSubmit={handleSubmit(login)}>
           <h1 className='fs-1'>LOGIN</h1>
           <p className='fs-4' style={{color: "#393646"}}>Bem-vindo de volta, estudante!</p>
 
@@ -55,7 +72,7 @@ const Login = () => {
           />
 
           <button className="btn button-outline mx-5 fs-4 mb-3" >
-            Logar
+           {loading ? '...' : 'Logar'}
           </button>
         </form>
       </div>
