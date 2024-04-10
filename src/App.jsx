@@ -12,7 +12,7 @@ import Users from "./pages/users/Users";
 import EmailVerify from "./pages/EmailVerify/EmailVerify";
 
 // Components and Hooks
-import PrivateRoute from "./data/hooks/auth/PrivateRoute";
+import RequireAuth from "./data/hooks/auth/RequireAuth";
 
 function App() {
   return (
@@ -25,10 +25,10 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path="/blog" element={<Blog/>}/>
           <Route path="/search" element={<Search/>}/>
-          <Route path="/profile" element={<Profile/>}/>
           <Route path="/students" element={<Users/>}/>
           <Route path="/auth/:id/verify/:token" element={<EmailVerify/>}/>
-          <Route element={<PrivateRoute/>}>
+          <Route element={<RequireAuth/>}>
+            <Route path="/profile/:id" element={<Profile/>}/>
           </Route>
         </Routes>
       </main>

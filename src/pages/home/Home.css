@@ -1,0 +1,66 @@
+.card-list{
+    padding: 0px 50px;
+}
+.card-list > div{
+    width: 350px;
+    min-height: 350px;
+}
+.card-list h1{
+    width: 90%;
+}
+.square-link{
+    width: 280px;
+    color: var(--primary);
+    border: 2px solid;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+}
+.square-link:hover{
+    opacity: 0.7;
+}
+.image-card{position: relative; }
+.image-card >img{
+    width: 100%;
+    height: 100%;
+    background: #D9D9D9;
+}
+.image-card > div{
+    z-index: 1;
+}
+.card-text a{
+    background: white;
+    width: 75%;
+    color: black;
+}
+.category-list{
+    background: var(--primary);
+    margin: 50px;
+    height: 150px;
+}
+.card-category a{
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    padding: 5px 60px;
+}
+.sugestions{
+    padding: 0px 100px;
+}
+.slider{
+    height: 440px;
+    background-color: gray;
+}
+@media (max-width: 992px){
+    .card-list{
+        flex-direction: column;
+        padding: 0;
+    }
+    .presentation-card{margin-bottom: 60px;}
+    .card-list > div{
+        width: 100%;
+        min-height: 350px;
+    }
+    .category-list{ margin: 30px 0px;}
+    .sugestions{ padding: 0;}
+}

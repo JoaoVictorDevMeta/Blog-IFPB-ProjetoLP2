@@ -26,7 +26,7 @@ const Search = () => {
         <p className='fs-5 pt-4' style={{color: "white"}}>Buscando Resultados para: <span></span></p>
       </div>
 
-      <section className='result-container container-xxl bg-white p-5 mb-5 position-relative'>
+      <section className='result-container container-xxl bg-white py-5 mb-5 position-relative'>
         <div className='filter-container mb-5'>
           <h1>Filtros</h1>
           <ul className=''>

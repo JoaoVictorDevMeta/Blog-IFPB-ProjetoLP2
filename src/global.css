@@ -78,7 +78,29 @@ header{justify-content: space-between;}
   .navbar{ display: none;}
   .menu-button{ display: block;}
   .responsive-menu{width: 100%;}
+  .navbar form{flex-direction: column-reverse;}
 }
 .menu-open{
   display: flex;
+}
+.profile-img > img{
+  width: 70px;
+  height: 70px;
+  border-radius: 100px;
+  border: 6px solid transparent;
+}
+.profile-img{
+  display: flex;
+  justify-content: left;
+}
+.profile-img:hover > img{
+  border: 6px solid var(--bs-primary-rgb);
+}
+
+/*temporary*/
+.popover{
+    background: white;
+    height: 140px;
+    width: 200px;
+    right: 0;
 }

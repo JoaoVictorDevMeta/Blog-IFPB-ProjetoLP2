@@ -1,57 +1,34 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { FiMenu } from "react-icons/fi";
-import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom'
+import { logOut } from '../../../data/reducers/auth/authSlice';
+import axios from 'axios';
 
 import Button from '../buttons/Button';
 
 const Navbar = () => {
-  const navigate = useNavigate()
   const [menu, setMenu] = useState(false)
-  const [userLogged, setUserLogged] = useState(false)
+  const [popover, setPopover] = useState(false)
+  const user = useSelector(state => state.auth.user)
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const persistedState = localStorage.getItem('persist:root');
-    if (persistedState) {
-      const state = JSON.parse(persistedState);
-      const user = state.user;
-      if (user) {
-        fetch(`/auth/verify/${user.id}`)
-        .then(response => {
-          if (response.ok) {
-            setUserLogged(true);
-          } else {
-            setUserLogged(false);
-          }
-        })
-        .catch(e => {
-          setUserLogged(false);
-        });
-      }
-    }
-  }, []);
-
-  async function handleLogout(){
-    await fetch('http://localhost:3000/auth/logout',{
-      method: 'POST',
-      credentials: 'include', 
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Logout failed');
-      }
-      localStorage.removeItem('persist:root')
-      setUserLogged(false)
+  const handleLogout = async () => {
+    try {
+      console.log('test')
+      await axios.post('/api/auth/logout');
+      dispatch(logOut());
       navigate('/')
-    })
-    .catch(e => {
-      console.error(e);
-    });
-  }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
   <header className='d-flex flex-wrap py-4'>
     <div className='d-flex px-5 py-3 justify-content-between responsive-menu'>
-      <a href="/" className="logo navbar-brand">Blog <span className='text-primary-emphasis'>IFPB</span></a>
+      <Link to="/" className="logo navbar-brand">Blog <span className='text-primary-emphasis'>IFPB</span></Link>
       <Button type='icon' className='menu-button fs-1' handleClick={() => {setMenu(!menu)}}>
         <FiMenu />
       </Button>
@@ -62,27 +39,35 @@ const Navbar = () => {
           
         </li>
         <li className="nav-item active">
-          <a href="/" className='nav-link'>Inicio</a>
+          <Link to="/" className='nav-link'>Inicio</Link>
         </li>
         <li className="nav-item active">
-          <a href="/students" className='nav-link'>Alunos</a>
+          <Link to="/students" className='nav-link'>Alunos</Link>
         </li>
       </ul>
-      <div className='navbar-nav pe-5 d-flex align-center gap-4'>
-        <form action="/search" role="search" className='d-flex flex-wrap gap-5'>
-          <input type="text" name='busca' className='nav-bar-input' placeholder='Buscar Assunto...'/>
-          <Button type="outline">
-            Buscar
-          </Button>
-        </form>
-        { userLogged ? (
-          <Button type='outline' handleClick={handleLogout}>
-            Logout
-          </Button>
-        ) : (
-          <a href="/login" className='nav-link'>Login</a>
-        )}
-      </div>
+      <form action="/search" role="search" className='d-flex flex-wrap gap-5'>
+        <input type="text" name='busca' className='nav-bar-input' placeholder='Buscar Assunto...'/>
+        <Button type="outline">
+          Buscar
+        </Button>
+      </form>
+      { user ? (
+        <div>
+          <Link className="profile-img position-relative">
+            <img src="https://th.bing.com/th/id/OIP.6UhgwprABi3-dz8Qs85FvwHaHa?rs=1&pid=ImgDetMain" alt={"UserImage." + user.name} onClick={()=>{setPopover(!popover)}}/>
+          </Link>
+          <div className={'popover position-absolute '+ (popover ? '' : 'd-none')}>
+            <div className='popover-content p-4'>
+              <Link to="/profile/1" className='nav-link mb-4'>Perfil</Link>
+              <Button type='outline' handleClick={handleLogout}>
+                LogOut
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <Link to="/login" className='nav-link text-center'>Login</Link>
+      )}
     </nav>
   </header>
   )

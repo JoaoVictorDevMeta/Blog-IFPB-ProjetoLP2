@@ -1,14 +1,20 @@
-import React, {useState} from 'react'
-import './LoginPage.css'
-import { useForm } from "react-hook-form"
-import { loginUser } from '../../data/services/login/auth'
-import { useNavigate } from 'react-router-dom'
+import React, {useState} from 'react';
+import './LoginPage.css';
+
+import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../data/reducers/auth/authSlice';
+import { login } from '../../data/reducers/auth/authApiSlice';
 
 import InputField from '../../ui/components/inputs/Input'
+import Button from '../../ui/components/buttons/Button';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [ errMsg, setErrMsg ] = useState('')
 
   const { 
     register,
@@ -16,17 +22,23 @@ const Login = () => {
     formState: { errors, isValid},
   } = useForm({ mode: "onBlur"})
 
-  const login = async (data) => {
+  const userLogin = async (data) => {
+    const {email, password} = data
     setLoading(true)
-    loginUser(data)
-    .then((response) => {
+    try{
+      const userData = await dispatch(login({ email, password })).unwrap();
+      dispatch(setUser(userData))
       navigate('/')
+    } catch(e) {
+      if(!e?.code){
+        setErrMsg('Erro no Servidor, tente novamente mais tarde');
+      }else if(e?.code === 'ERR_BAD_REQUEST'){
+        setErrMsg('Usuário não encontrado, ou ja está logado');
+      }else {
+        setErrMsg('Usuário ou senha inválidos');
+      }
       setLoading(false)
-    })
-    .catch((error) => {
-      console.log(error)
-      setLoading(false)
-    })
+    }
   }
 
   return (
@@ -43,7 +55,7 @@ const Login = () => {
         </div>
       </div>
       <div className='login-form login p-5 text-center d-flex justify-content-center'>
-        <form className="d-flex flex-column" onSubmit={handleSubmit(login)}>
+        <form className="d-flex flex-column" onSubmit={handleSubmit(userLogin)}>
           <h1 className='fs-1'>LOGIN</h1>
           <p className='fs-4' style={{color: "#393646"}}>Bem-vindo de volta, estudante!</p>
 
@@ -71,9 +83,15 @@ const Login = () => {
             errors={errors.password}
           />
 
-          <button className="btn button-outline mx-5 fs-4 mb-3" >
+            {errMsg && (
+              <div className="alert  alert-danger" role="alert">
+                {errMsg}
+              </div>
+            )}
+
+          <Button type='outline' className="btn button-outline mx-5 fs-4 mb-3" >
            {loading ? '...' : 'Logar'}
-          </button>
+          </Button>
         </form>
       </div>
     </section>

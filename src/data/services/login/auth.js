@@ -17,7 +17,7 @@ export const loginUser = async (data) => {
             }));
         }
         return response.json().then(data => {
-            localStorage.setItem('persist:root', JSON.stringify({ user: data }));
+            localStorage.setItem('user', JSON.stringify({ user: data }));
             return {
                 status: response.status,
                 error: data.message
