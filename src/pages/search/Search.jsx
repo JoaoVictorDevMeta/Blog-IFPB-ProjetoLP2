@@ -26,7 +26,7 @@ const Search = () => {
         <p className='fs-5 pt-4' style={{color: "white"}}>Buscando Resultados para: <span></span></p>
       </div>
 
-      <section className='result-container container-xxl bg-white py-5 mb-5 position-relative'>
+      <section className='result-container container-xxl bg-white mb-5 position-relative'>
         <div className='filter-container mb-5'>
           <h1>Filtros</h1>
           <ul className=''>
@@ -46,12 +46,12 @@ const Search = () => {
         </div>
 
         <nav className='py-5'>
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link fs-5" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link fs-5" href="#">1</a></li>
-            <li class="page-item"><a class="page-link fs-5" href="#">2</a></li>
-            <li class="page-item"><a class="page-link fs-5" href="#">3</a></li>
-            <li class="page-item"><a class="page-link fs-5" href="#">Next</a></li>
+          <ul className="pagination">
+            <li className="page-item"><a class="page-link fs-5" href="#">Previous</a></li>
+            <li className="page-item"><a class="page-link fs-5" href="#">1</a></li>
+            <li className="page-item"><a class="page-link fs-5" href="#">2</a></li>
+            <li className="page-item"><a class="page-link fs-5" href="#">3</a></li>
+            <li className="page-item"><a class="page-link fs-5" href="#">Next</a></li>
           </ul>
         </nav>
       </section>

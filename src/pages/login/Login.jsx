@@ -15,6 +15,7 @@ const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [ errMsg, setErrMsg ] = useState('')
+  const [ mailMsg, setMailMsg ] = useState('')
 
   const { 
     register,
@@ -30,12 +31,18 @@ const Login = () => {
       dispatch(setUser(userData))
       navigate('/')
     } catch(e) {
+      console.log(e.message)
+      setErrMsg('')
+      setMailMsg('')
+      //error treatment
       if(!e?.code){
         setErrMsg('Erro no Servidor, tente novamente mais tarde');
-      }else if(e?.code === 'ERR_BAD_REQUEST'){
-        setErrMsg('Usuário não encontrado, ou ja está logado');
-      }else {
+      }else if (e?.message === 'Request failed with status code 400') {
+        setMailMsg('Um email foi enviando para sua conta, por favor verifique!')
+      }else if(e?.message === 'Request failed with status code 401'){
         setErrMsg('Usuário ou senha inválidos');
+      }else {
+        setErrMsg('Usuário não verificado, ou ja está logado');
       }
       setLoading(false)
     }
@@ -86,6 +93,11 @@ const Login = () => {
             {errMsg && (
               <div className="alert  alert-danger" role="alert">
                 {errMsg}
+              </div>
+            )}
+            {mailMsg && (
+              <div className="alert alert-success">
+                {mailMsg}
               </div>
             )}
 

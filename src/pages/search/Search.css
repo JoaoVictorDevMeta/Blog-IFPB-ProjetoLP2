@@ -30,6 +30,7 @@
 .search-container{
     background: var(--primary);
 }
+.result-container{padding: 60px 0px;}
 .search-container form { padding: 0px 3rem;}
 .search-input{
     width: calc(100% - 280px);
@@ -47,12 +48,13 @@
     top: 0;
     right: 0;
   } 
-  @media (min-width: 992px) {
+  @media screen and (min-width: 992px) {
     .filter-container {
       position: static;
       float: right;
       width: 25%; 
     }
+    .result-container{padding: 60px !important; }
   }
   @media (max-width: 1300px) { 
     .filter-container {
@@ -91,12 +93,7 @@
     .search-input{ width: 100%;}
     .search-container form { padding: 0px;}
 }
-
 @media only screen and ( max-width: 767.98px ) {
-    .result{
-        justify-content: center;
-        padding: 0px 50px;
-        gap: 20px;
-    }   
+    .result{justify-content: center;padding: 0px 50px;gap: 20px;}   
 }
 @media only screen and ( max-width: 576px ){.result{padding: 0;}}

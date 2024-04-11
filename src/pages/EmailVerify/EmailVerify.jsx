@@ -8,7 +8,7 @@ const EmailVerify = () => {
     useEffect(() => {
         const verifyEmailUrl = async () => {
             try{
-                const url = `http://localhost:3000/auth/${param.id}/verify/${param.token}`
+                const url = `/api/auth/${param.id}/verify/${param.token}`
                 const data = await fetch(url)
                 if(data.status === 200){
                     setValidUrl(true)
