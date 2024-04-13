@@ -1,8 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { FiMenu } from "react-icons/fi";
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { logOut } from '../../../data/reducers/auth/authSlice';
+import { validateToken } from '../../../data/reducers/auth/authApiSlice';
+
 import axios from 'axios';
 
 import Button from '../buttons/Button';
@@ -25,6 +27,10 @@ const Navbar = () => {
     }
   };
 
+  useEffect(() => {
+    dispatch(validateToken());
+  }, [dispatch,  user]);
+
   return (
   <header className='d-flex flex-wrap py-4'>
     <div className='d-flex px-5 py-3 justify-content-between responsive-menu'>
@@ -35,9 +41,6 @@ const Navbar = () => {
     </div>
     <nav className={"navbar navbar-expand-lg navbar-light bg-none pb-4 px-5 justify-content-between gap-5 " + (menu && "menu-open")}>
       <ul className="navbar-nav gap-5">
-        <li className="nav-item active">
-          
-        </li>
         <li className="nav-item active">
           <Link to="/" className='nav-link'>Inicio</Link>
         </li>
@@ -54,7 +57,7 @@ const Navbar = () => {
       { user ? (
         <div>
           <Link className="profile-img position-relative">
-            <img src="https://th.bing.com/th/id/OIP.6UhgwprABi3-dz8Qs85FvwHaHa?rs=1&pid=ImgDetMain" alt={"UserImage." + user.name} onClick={()=>{setPopover(!popover)}}/>
+            <img src={ user.imageUrl || "https://th.bing.com/th/id/OIP.6UhgwprABi3-dz8Qs85FvwHaHa?rs=1&pid=ImgDetMain"} alt={"UserImage." + user.name} onClick={()=>{setPopover(!popover)}}/>
           </Link>
           <div className={'popover position-absolute '+ (popover ? '' : 'd-none')}>
             <div className='popover-content p-4'>

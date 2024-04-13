@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { login } from './authApiSlice';
+import { validateToken } from './authApiSlice';
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
     status: 'idle',
+    tokenStatus: 'idle',
     error: null,
   },
   reducers: {
@@ -15,6 +17,7 @@ export const authSlice = createSlice({
     logOut: (state) => {
         state.user = null;
         state.status = 'idle';
+        state.tokenStatus = 'idle';
         state.error = null;
     },
   },
@@ -30,6 +33,21 @@ export const authSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(validateToken.pending, (state) => {
+        state.tokenStatus = 'loading';
+      })
+      .addCase(validateToken.fulfilled, (state, action) => {
+        state.tokenStatus = 'succeeded';
+        if (action.payload != null && action.payload.user) {
+          state.user = action.payload.user;
+        }
+        state.error = null;
+      })
+      .addCase(validateToken.rejected, (state, action) => {
+        state.tokenStatus = 'failed';   
+        state.error = 'token invalido'
+        state.user = null;
       });
   },
 });

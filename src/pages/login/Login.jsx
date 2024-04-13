@@ -9,6 +9,7 @@ import { login } from '../../data/reducers/auth/authApiSlice';
 
 import InputField from '../../ui/components/inputs/Input'
 import Button from '../../ui/components/buttons/Button';
+import LoadingSpinner from '../../ui/components/spinner/Spinner';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -48,7 +49,7 @@ const Login = () => {
     }
   }
 
-  return (
+  return(
     <section className='register-container container-xl d-flex p-0'>
       <div className='information p-5 position-relative'>
         <div className='p-5 text-center '>
@@ -62,6 +63,7 @@ const Login = () => {
         </div>
       </div>
       <div className='login-form login p-5 text-center d-flex justify-content-center'>
+        { loading ? <LoadingSpinner m='580px'/> : 
         <form className="d-flex flex-column" onSubmit={handleSubmit(userLogin)}>
           <h1 className='fs-1'>LOGIN</h1>
           <p className='fs-4' style={{color: "#393646"}}>Bem-vindo de volta, estudante!</p>
@@ -102,9 +104,10 @@ const Login = () => {
             )}
 
           <Button type='outline' className="btn button-outline mx-5 fs-4 mb-3" >
-           {loading ? '...' : 'Logar'}
+            Logar
           </Button>
         </form>
+        }
       </div>
     </section>
   )
