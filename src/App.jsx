@@ -25,7 +25,8 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/blog" element={<Blog/>}/>
-          <Route path="/search" element={<Search/>}/>
+          <Route path="/search" element={<Search />} />
+          <Route path="/search/:query" element={<Search/>}/>
           <Route path="/students" element={<Users/>}/>
           <Route path="/auth/:id/verify/:token" element={<EmailVerify/>}/>
           <Route path='/user' element={<ProfileTest/>}/>

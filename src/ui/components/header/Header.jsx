@@ -12,6 +12,7 @@ import Button from '../buttons/Button';
 const Navbar = () => {
   const [menu, setMenu] = useState(false)
   const [popover, setPopover] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
   const user = useSelector(state => state.auth.user)
   const navigate = useNavigate()
   const dispatch = useDispatch();
@@ -25,6 +26,11 @@ const Navbar = () => {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const handleSearchSubmit = async (event) => {
+    event.preventDefault();
+    navigate(`/search/${searchTerm}`); // Navigate to the search page with the search term as a query parameter
   };
 
   useEffect(() => {
@@ -48,8 +54,14 @@ const Navbar = () => {
           <Link to="/students" className='nav-link'>Alunos</Link>
         </li>
       </ul>
-      <form action="/search" role="search" className='d-flex flex-wrap gap-5'>
-        <input type="text" name='busca' className='nav-bar-input' placeholder='Buscar Assunto...'/>
+      <form action="/search" role="search" className='d-flex flex-wrap gap-5' onSubmit={handleSearchSubmit}>
+        <input 
+          type="text" 
+          name='busca' 
+          className='nav-bar-input' 
+          placeholder='Buscar Assunto...'
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
         <Button type="outline">
           Buscar
         </Button>

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import InputField from '../../ui/components/inputs/Input'
 import Button from '../../ui/components/buttons/Button'
 import SelectField from '../../ui/components/inputs/Select'
-import { sendUser } from '../../data/services/register/register'
+import { sendUser } from '../../data/services/register'
 import { Cursos } from './Cursos'
 
 const Register = () => {
