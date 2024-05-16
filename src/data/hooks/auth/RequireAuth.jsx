@@ -3,6 +3,7 @@ import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../reducers/auth/authSlice';
+import { fetchAuth } from '../../services/checkAuth';
 
 import LoadingSpinner from '../../../ui/components/spinner/Spinner';
 
@@ -15,11 +16,7 @@ const RequireAuth = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const result = await axios({
-          method: 'get',
-          url: `/api/auth/verify/${currentUser?.id}`,
-          withCredentials: true,
-        });
+        const result = await fetchAuth(currentUser?.id);
         setIsAuthenticated(true);
       } catch (e) {
         setIsAuthenticated(false);

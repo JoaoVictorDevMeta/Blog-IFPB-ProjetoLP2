@@ -88,6 +88,7 @@ const Search = () => {
                       description={blog.subTitle}
                       image={blog?.image || null}
                       category={blog?.category || "Outro"} 
+                      link={blog.id}
                     />
                   );
                 })
