@@ -81,11 +81,18 @@
 .filter-container ul > li:hover{
     border-bottom: 2px solid white;
 }
+.active-filter{
+    background-color: white;
+    color: var(--primary);
+}
 .page-link{
     color: black !important; background-color: white !important; transition: 0.2s !important;
 }
 .page-link:hover{
     color: white !important; background-color: var(--primary) !important;
+}
+.pagination a:not(.disable){
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 767.98px) { 

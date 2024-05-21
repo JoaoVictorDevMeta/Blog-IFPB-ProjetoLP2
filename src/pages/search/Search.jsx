@@ -6,8 +6,10 @@ import './Search.css'
 
 import BlogResult from '../../ui/components/BlogResult'
 import Button from '../../ui/components/buttons/Button'
+import {Pagination} from '../../ui/partials/Search/Pagination'
 
 const Search = () => {
+  const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState("");
   const [search, setSearch] = useState("");
   const { query } = useParams();
@@ -15,8 +17,8 @@ const Search = () => {
     "Notícia", "Pesquisa", "Portaria", "Edital", "Evento", "Aluno", "Outros..."
   ]
 
-  const handleSearchChange = (event) => {
-    setSearch(event.target.value);
+  const handlePageChange = async (page) => {
+    setCurrentPage(page);
   };
 
   const handleFilterChange = (event) => {
@@ -33,15 +35,20 @@ const Search = () => {
     fetchData(query); 
   }, [query]);
 
+  useEffect(() => {
+    fetchData(search, filter, currentPage);
+  }, [ currentPage]);
+
   const handleSearchSubmit = async (event) => {
     event.preventDefault();
+    setCurrentPage(1);
     await fetchData(search, filter, 1);
   };
 
   return (
     <div>
       <div className='container-xxl search-container mb-5 py-4 px-5 mt-5'>
-        <form className='d-falex flex-wrap gap-5' onSubmit={handleSearchSubmit}>
+        <form className='d-flex flex-wrap gap-5' onSubmit={handleSearchSubmit}>
           <label htmlFor="search" className='fs-1 position-absolute'>
           <IoMdSearch color='white' className='mb-3'/>
           </label>
@@ -50,7 +57,7 @@ const Search = () => {
             id="search" 
             name='busca' 
             className='search-input nav-bar-input' 
-            onChange={handleSearchChange}
+            onChange={(event) => setSearch(event.target.value)}
           />
           <Button type='outline-white' className='fs-4'>Buscar</Button>
         </form>
@@ -61,9 +68,13 @@ const Search = () => {
         <div className='filter-container mb-5'>
           <h1>Filtros</h1>
           <ul className=''>
-            {filters.map((filter, i)=>{
+            {filters.map((filterItem, i)=>{
               return <li key={i} className='pb-1 mb-4'>
-                <button onClick={handleFilterChange} className='fs-4'>{filter}</button>
+                <button 
+                  onClick={handleFilterChange} 
+                  className={`fs-4 ${filter === filterItem ? 'active-filter' : ''}`}
+                >{filterItem}
+                </button>
               </li>
             })}
           </ul>
@@ -86,7 +97,7 @@ const Search = () => {
                       key={i}
                       title={blog.title}
                       description={blog.subTitle}
-                      image={blog?.image || null}
+                      image={blog?.content.imageUrl || null}
                       category={blog?.category || "Outro"} 
                       link={blog.id}
                     />
@@ -96,15 +107,11 @@ const Search = () => {
             }
         </div>
 
-        <nav className='py-5'>
-          <ul className="pagination">
-            <li className="page-item"><a className="page-link fs-5" href="#">Previous</a></li>
-            <li className="page-item"><a className="page-link fs-5" href="#">1</a></li>
-            <li className="page-item"><a className="page-link fs-5" href="#">2</a></li>
-            <li className="page-item"><a className="page-link fs-5" href="#">3</a></li>
-            <li className="page-item"><a className="page-link fs-5" href="#">Next</a></li>
-          </ul>
-        </nav>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={blogs?.totalPages}
+          handlePageChange={handlePageChange}
+        />
       </section>
     </div>
   )
