@@ -6,6 +6,7 @@ import './Search.css'
 
 import BlogResult from '../../ui/components/BlogResult'
 import Button from '../../ui/components/buttons/Button'
+import Footer from '../../ui/components/footer/Footer'
 import {Pagination} from '../../ui/partials/Search/Pagination'
 
 const Search = () => {
@@ -116,6 +117,8 @@ const Search = () => {
           handlePageChange={handlePageChange}
         />
       </section>
+
+      <Footer />
     </div>
   )
 }

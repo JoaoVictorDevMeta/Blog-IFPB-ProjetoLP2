@@ -15,11 +15,19 @@ import Imagem from '../../ui/partials/Blog/Imagem'
 import Autor from '../../ui/partials/Blog/Autor'
 import CommentSection from '../../ui/partials/Blog/CommentSection';
 import Button from '../../ui/components/buttons/Button'
+import Footer from '../../ui/components/footer/Footer'
+import LoadingSpinner from '../../ui/components/spinner/Spinner';
 
 const Blog = () => {
   const { data: blog, loading, error, fetchData } = useFetchBlog();
   let dif = false
   if ( blog?.createdAt !== blog?.editedAt) dif = true;
+
+  // if some error occurs on server or fetch
+  if (error) return <div>Erro: {error}</div>;
+
+  // loading spinner
+  if (loading) return <LoadingSpinner/>;
 
   return (
     <>
@@ -29,6 +37,7 @@ const Blog = () => {
       <Subtitle 
         subtitle={blog?.subTitle} 
         autor={blog?.author.name}
+        link={blog?.author.id}
         image={blog?.author.imageUrl}
         data={formatTimeAgo(blog?.createdAt)} 
         atualizado={formatTimeAgo(blog?.editedAt)}
@@ -65,9 +74,17 @@ const Blog = () => {
         </li>
       </ul>
     </div>
-    <Autor autor="Ariana Grande" tipo="Aluno" area="Informática III" texto="Ronaldo Gogoni é formado em Análise de Desenvolvimento de Sistemas e Tecnologia da Informação pela Fatec (Faculdade de Tecnologia de São Paulo). No Tecnoblog, fez parte do TB Responde, explicando conceitos de hardware, facilitando o uso de aplicativos e ensinando truques em jogos eletrônicos. Atento ao mundo científico, escreve artigos focados em ciência e tecnologia para o Meio Bit desde 2013.">
+    <Autor 
+      autor={blog?.author.name}
+      tipo={blog?.author.role} 
+      area={blog?.author.course} 
+      texto={blog?.author.description}
+      image={blog?.author.imageUrl}
+      link={blog?.author.id}
+    >
     </Autor>
     <CommentSection/>
+    <Footer/>
     </>
   )
 }

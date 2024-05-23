@@ -6,12 +6,14 @@ import useFetchHome from '../../data/hooks/home/useHome'
 import Logo from '../../assets/Test Logo.png'
 import { Card } from '../../ui/partials/Home/Card'
 import BlogResult from '../../ui/components/BlogResult'
+import Footer from '../../ui/components/footer/Footer'
 
 const Home = () => {
   const { data, loading, error } = useFetchHome();
   const { recent, trending } = data || {};
 
   return (
+    <>
     <section className="container-xxl conteudo-xxl mt-5 py-5 px-0w">
       <section className="card-list d-flex justify-content-between gap-3">
         <div className="presentation-card">
@@ -79,12 +81,15 @@ const Home = () => {
               title={data.title} 
               description={data.subTitle} 
               image={data.content.imageUrl} 
+              link={data.id}
               category={data.categories?.[0].name}
             />
           })}
         </div>
       </section>
     </section>
+    <Footer/>
+    </>
   )
 }
 

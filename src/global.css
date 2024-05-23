@@ -96,6 +96,12 @@ header{justify-content: space-between;}
 .profile-img:hover > img{
   border: 6px solid var(--bs-primary-rgb);
 }
+footer{
+  background-color: var(--primary);
+  height: 50vh;
+  color: white;
+}
+footer .content{ height: 85%;}
 
 /*temporary*/
 .popover{
