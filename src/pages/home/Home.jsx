@@ -1,12 +1,16 @@
 import React from 'react'
 import './Home.css'
 import { blogs } from './db.json'
+import useFetchHome from '../../data/hooks/home/useHome'
 
 import Logo from '../../assets/Test Logo.png'
 import { Card } from '../../ui/partials/Home/Card'
 import BlogResult from '../../ui/components/BlogResult'
 
 const Home = () => {
+  const { data, loading, error } = useFetchHome();
+  const { recent, trending } = data || {};
+
   return (
     <section className="container-xxl conteudo-xxl mt-5 py-5 px-0w">
       <section className="card-list d-flex justify-content-between gap-3">
@@ -24,14 +28,14 @@ const Home = () => {
         </div>
 
         <Card
-          title='IFPB aprova greve e estudantes ficam revoltados'
-          image=''
-          link=''
+          title={trending?.[0].title}
+          image={trending?.[0].content.imageUrl}
+          link={trending?.[0].id}
         />
         <Card
-          title=''
-          image=''
-          link=''
+          title={trending?.[1].title}
+          image={trending?.[1].content.imageUrl}
+          link={trending?.[1].id}
         />
       </section>
       <div className='category-list'>
@@ -69,8 +73,14 @@ const Home = () => {
         </h1>
 
         <div className='items-container'>
-          {blogs.map((data, i) => {
-            return <BlogResult key={i} title={data.title} description={data.description} image={data.image} category={data.category}/>
+          {trending?.slice(1, 6).map((data, i) => {
+              return <BlogResult 
+              key={i} 
+              title={data.title} 
+              description={data.subTitle} 
+              image={data.content.imageUrl} 
+              category={data.categories?.[0].name}
+            />
           })}
         </div>
       </section>

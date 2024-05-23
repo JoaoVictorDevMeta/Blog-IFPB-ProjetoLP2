@@ -12,9 +12,10 @@ const Search = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState("");
   const [search, setSearch] = useState("");
+  const [searched, setSearched] = useState("");
   const { query } = useParams();
   const filters = [
-    "Notícia", "Pesquisa", "Portaria", "Edital", "Evento", "Aluno", "Outros..."
+    "Notícia", "Pesquisa", "Portaria", "Edital", "Evento", "Projeto", "Outros..."
   ]
 
   const handlePageChange = async (page) => {
@@ -33,6 +34,7 @@ const Search = () => {
 
   useEffect(() => {
     fetchData(query); 
+    setSearched(query);
   }, [query]);
 
   useEffect(() => {
@@ -42,6 +44,7 @@ const Search = () => {
   const handleSearchSubmit = async (event) => {
     event.preventDefault();
     setCurrentPage(1);
+    setSearched(search);
     await fetchData(search, filter, 1);
   };
 
@@ -61,7 +64,7 @@ const Search = () => {
           />
           <Button type='outline-white' className='fs-4'>Buscar</Button>
         </form>
-        <p className='fs-5 pt-4' style={{color: "white"}}>Buscando Resultados para: <span></span></p>
+        <p className='fs-5 pt-4' style={{color: "white"}}>Buscando Resultados para: <span>{searched}</span></p>
       </div>
 
       <section className='result-container container-xxl bg-white mb-5 position-relative'>
