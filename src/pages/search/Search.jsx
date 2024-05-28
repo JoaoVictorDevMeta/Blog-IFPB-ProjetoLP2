@@ -4,7 +4,8 @@ import { useSearch } from '../../data/hooks/search/useSearch'
 import { useParams } from 'react-router-dom';
 import './Search.css'
 
-import BlogResult from '../../ui/components/BlogResult'
+import BlogResult from '../../ui/components/blogItem/BlogResult'
+import BlogPlaceholder from '../../ui/components/blogItem/BlogPlaceholder';
 import Button from '../../ui/components/buttons/Button'
 import Footer from '../../ui/components/footer/Footer'
 import {Pagination} from '../../ui/partials/Search/Pagination'
@@ -88,7 +89,7 @@ const Search = () => {
           <h1 className='pb-5'>Resultados:</h1>
             { loading ? (
                 <div>
-                  Loading...
+                  {[...Array(7)].map((_, i) => <BlogPlaceholder key={i} />)}
                 </div>
               ) : error ? (
                 <div>

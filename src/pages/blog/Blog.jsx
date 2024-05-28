@@ -18,6 +18,9 @@ import Button from '../../ui/components/buttons/Button'
 import Footer from '../../ui/components/footer/Footer'
 import LoadingSpinner from '../../ui/components/spinner/Spinner';
 
+import CommentsProvider from '../../data/hooks/comment/CommentProvider';
+import Comment from '../../ui/components/comments/Comment';
+
 const Blog = () => {
   const { data: blog, loading, error, fetchData } = useFetchBlog();
   let dif = false
@@ -83,6 +86,11 @@ const Blog = () => {
       link={blog?.author.id}
     >
     </Autor>
+    <div className='comment-section'>
+      <CommentsProvider>
+        <Comment />
+      </CommentsProvider>
+    </div>
     <CommentSection/>
     <Footer/>
     </>

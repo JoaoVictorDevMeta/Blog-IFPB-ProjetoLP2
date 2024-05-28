@@ -27,7 +27,7 @@ const Register = () => {
       setCursoError('Coloque seu Curso!');
       return;
     }
-    data = {'curso': curso, ...data};
+    data = {'course': curso, ...data};
 
     sendUser(data)
     .then((response) => {

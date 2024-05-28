@@ -5,7 +5,7 @@ import useFetchHome from '../../data/hooks/home/useHome'
 
 import Logo from '../../assets/Test Logo.png'
 import { Card } from '../../ui/partials/Home/Card'
-import BlogResult from '../../ui/components/BlogResult'
+import BlogResult from '../../ui/components/blogItem/BlogResult'
 import Footer from '../../ui/components/footer/Footer'
 
 const Home = () => {
