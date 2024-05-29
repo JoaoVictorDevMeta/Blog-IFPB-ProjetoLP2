@@ -7,7 +7,6 @@ import { selectCurrentUser } from '../../../data/reducers/auth/authSlice';
 const Comment = ({ commentId = null, nodeId = 1 }) => {
   const { comments, fetchComments } = useContext(CommentsContext);
   const currentUser = useSelector(selectCurrentUser);
-  console.log(nodeId)
 
   useEffect(() => {
     if (!comments[commentId || 'top']) {
@@ -19,7 +18,7 @@ const Comment = ({ commentId = null, nodeId = 1 }) => {
 
   return (
     <ul className={'comment-list ms-0' + (nodeId === 1 || nodeId === 4 ? ' p-0' : '')}>
-      {commentList.map((comment) => (
+      { commentList?.[0] ? commentList.map((comment) => (
         <CommentContent 
             key={comment.id} 
             comment={comment} 
@@ -27,7 +26,9 @@ const Comment = ({ commentId = null, nodeId = 1 }) => {
             nodeId={nodeId} 
             user={currentUser}
         />
-      ))}
+      )) : (
+        <li>No comments yet</li>
+      )}
     </ul>
   );
 };

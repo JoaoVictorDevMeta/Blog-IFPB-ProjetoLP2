@@ -1,16 +1,35 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
+import CommentsContext from '../../../data/hooks/comment/CommentContext';
+import useAddComment from '../../../data/hooks/comment/useAddComment';
+import useRemoveComment from '../../../data/hooks/comment/useRemoveComment';
+
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import Button from '../buttons/Button';
 import Comment from './Comment';
-import CommentsContext from '../../../data/hooks/comment/CommentContext';
 
 import { formatTimeAgo } from '../../../data/utils/formatTimeAgo';
 
 const CommentContent = ({ comment, nodeId, user }) => {
     const { comments, fetchComments } = useContext(CommentsContext);
+    const [isCommentVisible, setIsCommentVisible] = useState(true);
     const [mode, setMode] = useState('view'); // 'view', 'edit', or 'reply'
     const [areRepliesVisible, setAreRepliesVisible] = useState(false);
     const inputRef = useRef(null)
+    const [input, setinput] = useState("")
+
+    //setup of hooks configuration
+    const { 
+      isLoading: isAdding, 
+      error: addError, 
+      data: addData, 
+      execute: addComment, 
+    } = useAddComment();
+    const { 
+      isLoading: isRemoving, 
+      error: removeError, 
+      data: removeData, 
+      execute: removeComment 
+    } = useRemoveComment();
 
     // this function will handle the reply button click
     // it helps dealing with denecessary requests
@@ -21,13 +40,32 @@ const CommentContent = ({ comment, nodeId, user }) => {
         setAreRepliesVisible(!areRepliesVisible);
     };
 
+    const handleAddComment = () => {
+      if(input.length < 2) return;
+      addComment({content:input}, comment.id);
+      setinput('');
+      setMode('view');
+    }
+
+    useEffect(() => {
+      if (addData) {
+        console.log('A new comment has been added. Fetching comments again...');
+        fetchComments(comment.id);
+        console.log('Comments after fetching:', comments);
+        setAreRepliesVisible(true);
+      }
+      if(removeData){
+        setIsCommentVisible(false);
+      }
+    }, [addData, removeData]);
+    
     // this useEffect will focus the input when the mode is 'edit'
     useEffect(() =>{
         inputRef?.current?.focus();
     }, [mode === 'edit'])
 
-  return (
-    <div key={comment.id}>
+  return ( 
+    <div key={comment.id} className={isCommentVisible ? '' : 'hidden'}>
       <div className='comment-container d-flex my-4'>
         <img src={comment.user.imageUrl} alt="" className='user-image' />
         <div className='comment-content ms-3'>
@@ -66,13 +104,17 @@ const CommentContent = ({ comment, nodeId, user }) => {
                     </Button>
                 )}
                 {
+                    user?.id && (
+                      <Button
+                      type='icon'
+                      handleClick={() => setMode('reply')}
+                      >Responder
+                      </Button>
+                    )
+                }
+                {
                     comment.userId === user?.id && (
                 <>
-                    <Button
-                    type='icon'
-                    handleClick={() => setMode('reply')}
-                    >Responder
-                    </Button>
                     <Button
                     type='icon'
                     handleClick={() => setMode('edit')}
@@ -80,7 +122,7 @@ const CommentContent = ({ comment, nodeId, user }) => {
                     </Button>
                     <Button
                     type='icon'
-                    onClick={()=>{}}
+                    handleClick={()=> removeComment(comment.id)}
                     >Deletar
                     </Button>
                 </>
@@ -92,10 +134,10 @@ const CommentContent = ({ comment, nodeId, user }) => {
       </div>
       {mode === 'reply' && (
         <div className='ps-5'>
-          <textarea className="input-comment" autoFocus/>
+          <textarea className="input-comment" autoFocus onChange={(event) => setinput(event.target.value)}/>
           <Button
             type='save'
-            onClick={()=>{}}
+            handleClick={handleAddComment}
           >Responder</Button>
           <Button
             type='cancel'

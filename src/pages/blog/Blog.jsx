@@ -86,11 +86,7 @@ const Blog = () => {
       link={blog?.author.id}
     >
     </Autor>
-    <CommentSection>
-      <CommentsProvider>
-        <Comment />
-      </CommentsProvider>
-    </CommentSection>
+      <CommentSection/>
     <Footer/>
     </>
   )

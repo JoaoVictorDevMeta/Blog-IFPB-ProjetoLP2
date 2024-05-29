@@ -4,11 +4,23 @@ Esse projeto contem o trabalho de cinco estudantes do curso técnico integrado e
 
 ## Sobre a produção
 
-### 
+### Integrantes
+
+O Projeto conta com a produção de cinco membros, além da mentoria do professor da disciplina, são eles:
+
+- [João Victor Gouveia](https://github.com/JoaoVictorDevMeta/)
+- [Vitor Igor Lessa](https://github.com/vitor-igor)
+- [Joana Victória Alves](https://github.com/joanavicsilva)
+- [Raphael Victor Silva](https://github.com/Raphael-Victor-Silva-Cavalcante-Viana)
+- [Luanna Ferreira Cavalcante]
+
+Além do Professor:
+
+- [Luiz Carlos](https://github.com/lucachaves)
 
 ## Setup Geral
 
-O projeto se trata do Front End feito em ReactJS
+> O projeto se trata do Front End feito em ReactJS
 
 ### Como utilizar
 
@@ -18,7 +30,7 @@ O projeto se trata do Front End feito em ReactJS
 ```shell
 npm install
 ```
-2.1 Caso tudo ocorra bem deverá aparecer as seguintes mensagens
+- Caso tudo ocorra bem deverá aparecer as seguintes mensagens
 ```shell
 up to date, audited 275 packages in 2s
 
@@ -28,43 +40,7 @@ up to date, audited 275 packages in 2s
 found 0 vulnerabilities
 ```
 
-3. Crie um arquivo no diretorio src/pages/search/db.json e adicione o conteudo abaixo:
-```json
-{
-    "blogs": [
-        {
-            "title": "My first blog post",
-            "description": "This is my first blog, please enjoy it and give some feedback. I love programming, this is my area of activity, its wonderful",
-            "category": "Informação",
-            "image": "https://media.istockphoto.com/id/1334436084/pt/foto/top-down-view-of-colorful-illuminated-gaming-accessories-laying-on-table.jpg?s=612x612&w=0&k=20&c=RADkpRxqLuKNRojQHMbRqcyiuqjt3BJ2Nj8DPgvrTAs="
-        },
-        {
-            "title": "Seja bem vindo ao Blog do IFPB",
-            "description": "Titulo do Blog em especifico, tratando o teTitulo do Blog em especifico, tratando o tema......Titulo do Blog em especifico, tratando o tema......ma......",
-            "category": "Informação",
-            "image": "https://files.tecnoblog.net/wp-content/uploads/2022/05/blog.png"
-        },
-        {
-            "title": "Como construir um Blog",
-            "description": "Titulo do Blog em especifico, tratando o teTitulo do Blog em especifico, tratando o tema......Titulo do Blog em especifico, tratando o tema......ma......",
-            "category": "Informação",
-            "image": "https://files.tecnoblog.net/wp-content/uploads/2022/05/o-que-e-blog-destaque-1536x864.png"
-        },
-        {
-            "title": "Os melhores Jogos de 2024",
-            "description": "Em uma pesquisa feita na internet, constatou-se a liderança do Xadrez no Ranking de jogos, alem de Gorila Voador e Temple Run...",
-            "category": "Informação",
-            "image": "https://media.wired.com/photos/62855b1bb6cfd378a30c474a/master/pass/Build-Game-Watch-It-Die-Hyper-Scape-Games.jpg"
-        },
-        {
-            "title": "Titulo do Blog em especifico, tratando o tema......",
-            "description": "Titulo do Blog em especifico, tratando o teTitulo do Blog em especifico, tratando o tema......Titulo do Blog em especifico, tratando o tema......ma......",
-            "category": "Informação",
-            "image": "https://t4.ftcdn.net/jpg/04/25/74/29/360_F_425742955_QH2nJTiyl7N0YWzbCjQoH6fEGyNaiFrz.jpg"
-        }
-    ]
-}
-```
+3. É importante lembrar que este projeto recebe dados de uma API, para saber mais acesse o link: [Blog IFPB Server](https://github.com/JoaoVictorDevMeta/Blog-IFPB-ProjetoLP2-Server)
 
 4. Execute no mesmo terminal em que fez a instalação o seguinte comando:
 ```shell

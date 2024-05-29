@@ -102,6 +102,13 @@ footer{
   color: white;
 }
 footer .content{ height: 85%;}
+.hidden{
+  display: none;
+}
+/*Preventing swall padding*/
+body.swal2-shown {
+  padding-right: 0 !important;
+}
 
 /*temporary*/
 .popover{
