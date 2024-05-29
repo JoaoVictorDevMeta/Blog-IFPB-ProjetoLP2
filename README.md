@@ -2,6 +2,10 @@
 
 Esse projeto contem o trabalho de cinco estudantes do curso técnico integrado em informática do IFPB, campus João Pessoa, e contempla a nota anual da disciplina LP2(linguagens de programação 2).
 
+## Sobre a produção
+
+### 
+
 ## Setup Geral
 
 O projeto se trata do Front End feito em ReactJS

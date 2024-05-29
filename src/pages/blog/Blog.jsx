@@ -86,12 +86,11 @@ const Blog = () => {
       link={blog?.author.id}
     >
     </Autor>
-    <div className='comment-section'>
+    <CommentSection>
       <CommentsProvider>
         <Comment />
       </CommentsProvider>
-    </div>
-    <CommentSection/>
+    </CommentSection>
     <Footer/>
     </>
   )
