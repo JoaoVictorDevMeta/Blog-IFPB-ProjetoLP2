@@ -17,16 +17,22 @@ const Comment = ({ commentId = null, nodeId = 1 }) => {
   const commentList = comments[commentId || 'top'] || [];
 
   return (
-    <ul className={'comment-list ms-0' + (nodeId === 1 || nodeId === 4 ? ' p-0' : '')}>
-      { commentList?.[0] ? commentList.map((comment) => (
-        <CommentContent 
-            key={comment.id} 
-            comment={comment} 
-            fetchComments={fetchComments} 
-            nodeId={nodeId} 
+    <ul
+      className={
+        'comment-list ms-0' + (nodeId === 1 || nodeId === 4 ? ' p-0' : '')
+      }
+    >
+      {commentList?.[0] ? (
+        commentList.map((comment) => (
+          <CommentContent
+            key={comment.id}
+            comment={comment}
+            fetchComments={fetchComments}
+            nodeId={nodeId}
             user={currentUser}
-        />
-      )) : (
+          />
+        ))
+      ) : (
         <li>No comments yet</li>
       )}
     </ul>

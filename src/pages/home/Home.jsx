@@ -14,7 +14,7 @@ const Home = () => {
 
   return (
     <>
-    <section className="container-xxl conteudo-xxl mt-5 py-5 px-0w">
+    <section className="container-xxl conteudo-xxl mt-5 py-5 px-0">
       <section className="card-list d-flex justify-content-between gap-3">
         <div className="presentation-card">
           <img src={Logo} alt=""/>

@@ -1,9 +1,5 @@
-
-function Titulo(props){
-
-    return(
-        <p className="conteudo-titulo">{props.titulo}</p>
-    );
+function Titulo(props) {
+  return <p className="conteudo-titulo">{props.titulo}</p>;
 }
 
-export default Titulo
+export default TituloF;

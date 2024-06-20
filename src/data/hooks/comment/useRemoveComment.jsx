@@ -19,27 +19,23 @@ const useRemoveComment = () => {
       showCancelButton: true,
       confirmButtonColor: '#1C6758',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    })
-  
+      confirmButtonText: 'Yes, delete it!',
+    });
+
     if (result.isConfirmed) {
       setIsLoading(true);
       setError(null);
       try {
         const response = await removeComment(userId, commentId);
         setData(response);
-        Swal.fire(
-          'Deleted!',
-          'Your comment has been deleted.',
-          'success'
-        )
+        Swal.fire('Deleted!', 'Your comment has been deleted.', 'success');
       } catch (err) {
         setError(err);
         Swal.fire(
           'Error!',
           'There was an error deleting your comment.',
-          'error'
-        )
+          'error',
+        );
       } finally {
         setIsLoading(false);
       }

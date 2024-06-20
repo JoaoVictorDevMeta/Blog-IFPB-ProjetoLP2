@@ -1,9 +1,5 @@
-
-function Title(props){
-
-    return(
-        <h1 className="conteudo-title fs-1 px-4">{props.title}</h1>
-    );
+function Title(props) {
+  return <h1 className="conteudo-title fs-1 px-4">{props.title}</h1>;
 }
 
-export default Title
+export default Title;

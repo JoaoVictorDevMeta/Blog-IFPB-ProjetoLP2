@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../reducers/auth/authSlice';
 import { fetchAuth } from '../../services/checkAuth';
@@ -17,7 +16,7 @@ const RequireAuth = () => {
     const checkAuth = async () => {
       try {
         const result = await fetchAuth(currentUser?.id);
-        setIsAuthenticated(true);
+        if (result) setIsAuthenticated(true);
       } catch (e) {
         setIsAuthenticated(false);
       } finally {
@@ -28,9 +27,9 @@ const RequireAuth = () => {
     checkAuth();
   }, [currentUser?.id]);
 
-    if (isLoading) {
-        return <LoadingSpinner />;
-    }
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return isAuthenticated ? (
     <Outlet />

@@ -16,13 +16,17 @@ const Notifications = () => {
 
   const handleRead = async (id) => {
     const res = await axios.put(`/api/notifications/${id}`);
-    setNotifications(notifications.map(n => n.id === id ? res.data : n));
+    setNotifications(notifications.map((n) => (n.id === id ? res.data : n)));
   };
 
   return (
     <div className="notifications">
-      {notifications.map(notification => (
-        <Notification key={notification.id} notification={notification} onRead={handleRead} />
+      {notifications.map((notification) => (
+        <Notification
+          key={notification.id}
+          notification={notification}
+          onRead={handleRead}
+        />
       ))}
     </div>
   );

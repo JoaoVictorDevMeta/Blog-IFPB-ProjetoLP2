@@ -15,15 +15,15 @@ export const authSlice = createSlice({
       state.user = action.payload;
     },
     logOut: (state) => {
-        state.user = null;
-        state.status = 'idle';
-        state.tokenStatus = 'idle';
-        state.error = null;
+      state.user = null;
+      state.status = 'idle';
+      state.tokenStatus = 'idle';
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
     builder
-        .addCase(login.pending, (state) => {
+      .addCase(login.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(login.fulfilled, (state, action) => {
@@ -44,9 +44,9 @@ export const authSlice = createSlice({
         }
         state.error = null;
       })
-      .addCase(validateToken.rejected, (state, action) => {
-        state.tokenStatus = 'failed';   
-        state.error = 'token invalido'
+      .addCase(validateToken.rejected, (state) => {
+        state.tokenStatus = 'failed';
+        state.error = 'token invalido';
         state.user = null;
       });
   },
@@ -56,4 +56,4 @@ export const { setUser, logOut } = authSlice.actions;
 
 export default authSlice.reducer;
 
-export const selectCurrentUser = (state) => state.auth.user
+export const selectCurrentUser = (state) => state.auth.user;

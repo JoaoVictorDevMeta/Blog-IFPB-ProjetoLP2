@@ -3,8 +3,8 @@ import axios from 'axios';
 export const fetchProfile = async (userId) => {
   const response = await axios.get(`/api/profile/`, {
     params: {
-      id: userId
-    }
+      id: userId,
+    },
   });
   return response.data;
 };

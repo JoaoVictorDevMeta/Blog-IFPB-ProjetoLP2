@@ -5,8 +5,8 @@ export const fetchBlogs = async (searchTerm, category, page) => {
     params: {
       search: searchTerm,
       page: page,
-      category: category
-    }
+      category: category,
+    },
   });
   return response.data;
 };

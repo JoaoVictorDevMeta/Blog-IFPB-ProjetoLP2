@@ -1,10 +1,8 @@
-import React from 'react'
-import './Users.css'
+import React from 'react';
+import './Users.css';
 
 const users = () => {
-  return (
-    <div>users</div>
-  )
-}
+  return <div>users</div>;
+};
 
-export default users
+export default users;
