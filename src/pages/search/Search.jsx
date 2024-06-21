@@ -40,12 +40,12 @@ const Search = () => {
 
   const { data: blogs, loading, error, fetchData } = useSearch();
 
-  useEffect((fetchData) => {
+  useEffect(() => {
     fetchData(query);
     setSearched(query);
   }, [query]);
 
-  useEffect((fetchData, filter, search) => {
+  useEffect((filter, search) => {
     fetchData(search, filter, currentPage);
   }, [currentPage]);
 
