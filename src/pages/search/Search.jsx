@@ -45,9 +45,12 @@ const Search = () => {
     setSearched(query);
   }, [query]);
 
-  useEffect((filter, search) => {
-    fetchData(search, filter, currentPage);
-  }, [currentPage]);
+  useEffect(
+    (filter, search) => {
+      fetchData(search, filter, currentPage);
+    },
+    [currentPage],
+  );
 
   const handleSearchSubmit = async (event) => {
     event.preventDefault();
@@ -115,7 +118,7 @@ const Search = () => {
                   key={i}
                   title={blog.title}
                   description={blog.subTitle}
-                  image={blog?.content.imageUrl || null}
+                  image={blog?.content?.[0].imageUrl}
                   category={blog?.category || 'Outro'}
                   link={blog.id}
                 />

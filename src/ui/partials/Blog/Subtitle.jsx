@@ -8,7 +8,14 @@ function Subtitle(props) {
       </div>
       <hr></hr>
       <div className="conteudo-card px-4">
-        <img className="card-image" src={props.image} alt="foto de perfil" />
+        <img
+          className="card-image"
+          src={
+            props.image ||
+            'https://th.bing.com/th/id/OIP.6UhgwprABi3-dz8Qs85FvwHaHa?rs=1&pid=ImgDetMain'
+          }
+          alt="foto de perfil"
+        />
         <div className="card ms-3">
           <Link
             to={`/profile/${props.link}`}

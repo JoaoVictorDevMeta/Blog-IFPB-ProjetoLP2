@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import useAddBlog from '../../data/hooks/newpost/useAddBlog';
 
 import './NewPost.css';
 import Swal from 'sweetalert2';
 import InputField from '../../ui/components/inputs/Input';
-import Button from '../../ui/components/buttons/Button';
 
 import BlogCellsTransitionGroup from '../../ui/partials/NewPost/BlogGroupCell';
 
 const NewPost = () => {
   const [blogCells, setBlogCells] = useState([
-    { id: 1, title: '', content: '', image: '' },
+    { id: 1, title: '', content: '', image: File },
   ]);
   const [referenceText, setReferenceText] = useState('');
   const [references, setReferences] = useState([]);
@@ -21,9 +21,45 @@ const NewPost = () => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({ mode: 'onBlur' });
+  const {
+    isLoading: isAdding,
+    error: addError,
+    data: addData,
+    execute: addBlog,
+  } = useAddBlog();
 
   //BlogCell Logic
+  const updateBlogCellTitle = (id, newTitle) => {
+    setBlogCells(
+      blogCells.map((cell) =>
+        cell.id === id ? { ...cell, title: newTitle } : cell,
+      ),
+    );
+  };
+
+  const updateBlogCellContent = (id, newContent) => {
+    setBlogCells(
+      blogCells.map((cell) =>
+        cell.id === id ? { ...cell, content: newContent } : cell,
+      ),
+    );
+  };
+
+  const updateBlogCellImage = (id, newImage) => {
+    setBlogCells(
+      blogCells.map((cell) =>
+        cell.id === id ? { ...cell, image: newImage } : cell,
+      ),
+    );
+  };
   const addBlogCell = () => {
+    if (blogCells.length >= 5) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Você atingiu o limite de células!',
+      });
+    }
     setBlogCells((prevBlogCells) => [
       ...prevBlogCells,
       {
@@ -80,9 +116,34 @@ const NewPost = () => {
   };
 
   //Submit Logic
-  const userPost = async (data) => {
-    console.log(data);
-    console.log(blogCells);
+  const userPost = (data) => {
+    //title and description
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('subTitle', data.description);
+    formData.append('category', 'Projeto');
+
+    //blogcell images
+    blogCells.forEach((cell) => {
+      if (cell.image) {
+        formData.append('image', cell.image);
+      } else {
+        formData.append('image', 'Projeto');
+      }
+    });
+
+    //blogcell content
+    const blogPosts = blogCells.map((cell) => {
+      return {
+        title: cell.title,
+        content: cell.content,
+      };
+    });
+    const blogPostsJson = JSON.stringify(blogPosts);
+    formData.append('posts', blogPostsJson);
+
+    console.log(formData)
+    addBlog(formData);
   };
 
   return (
@@ -103,8 +164,8 @@ const NewPost = () => {
               registerOptions={register('title', {
                 required: true,
                 pattern: {
-                  value: /^[A-Za-z0-9]+$/i,
-                  message: 'Apenas letras e números são permitidos',
+                  value: /^[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.,;:!? ]+$/i,
+                  message: 'Apenas letras, números e pontuações são permitidos',
                 },
               })}
               errors={errors?.title}
@@ -115,16 +176,21 @@ const NewPost = () => {
             blogCells={blogCells}
             addBlogCell={addBlogCell}
             deleteBlogCell={deleteBlogCell}
+            updateCellTitle={updateBlogCellTitle}
+            updateCellContent={updateBlogCellContent}
+            updateCellImage={updateBlogCellImage}
           />
         </section>
         <aside>
-          <div className="blog-head-container blog-card">a</div>
+          <div className="blog-head-container blog-card">
+            QUAL CATEGORIA SEU PROJETO SE ENCAIXA?
+          </div>
           <button
             type="submit"
             className="rounded-edge w-100 mb-3"
             disabled={false}
           >
-            Publicar
+            { isAdding ? '...' : 'Publicar'}
           </button>
           <h2>Descricao</h2>
           <div className="blog-description-container blog-card">
@@ -133,8 +199,8 @@ const NewPost = () => {
               {...register('description', {
                 required: true,
                 pattern: {
-                  value: /^[A-Za-z0-9]+$/i,
-                  message: 'Apenas letras e números são permitidos',
+                  value: /^[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.,;:!? ]+$/i,
+                  message: 'Apenas letras, números e pontuações são permitidos',
                 },
               })}
             ></textarea>

@@ -4,7 +4,13 @@ import 'react-quill/dist/quill.snow.css';
 import InputField from '../../components/inputs/Input';
 import Button from '../../components/buttons/Button';
 
-export const BlogCell = ({ cell, onDelete }) => {
+export const BlogCell = ({
+  cell,
+  onDelete,
+  updateTitle,
+  updateContent,
+  updateImage,
+}) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [image, setImage] = useState(
@@ -17,6 +23,7 @@ export const BlogCell = ({ cell, onDelete }) => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(reader.result);
+        updateImage(file);
       };
       reader.readAsDataURL(file);
     }
@@ -32,7 +39,6 @@ export const BlogCell = ({ cell, onDelete }) => {
       <div className="image-input-container">
         <img src={image} alt="" className="image-display" />
         <input type="file" accept="image/*" onChange={handleFileChange} />
-        {/*imagesrc input*/}
       </div>
       <div className="cell-input">
         <label htmlFor="">Título da célula</label>
@@ -41,6 +47,7 @@ export const BlogCell = ({ cell, onDelete }) => {
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
+            updateTitle(e.target.value);
           }}
         />
       </div>
@@ -48,7 +55,10 @@ export const BlogCell = ({ cell, onDelete }) => {
         <label htmlFor="">Contéudo da célula</label>
         <ReactQuill
           value={content}
-          onChange={setContent}
+          onChange={(value) => {
+            setContent(value);
+            updateContent(value);
+          }}
           modules={{
             toolbar: [
               ['bold', 'italic', 'underline', 'strike'], // toggled buttons

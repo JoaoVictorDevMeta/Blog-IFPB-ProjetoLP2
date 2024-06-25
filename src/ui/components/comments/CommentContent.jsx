@@ -67,7 +67,14 @@ const CommentContent = ({ comment, nodeId, user }) => {
   return (
     <div key={comment.id} className={isCommentVisible ? '' : 'hidden'}>
       <div className="comment-container d-flex my-4">
-        <img src={comment.user.imageUrl} alt="" className="user-image" />
+        <img
+          src={
+            comment.user.imageUrl ||
+            'https://th.bing.com/th/id/OIP.6UhgwprABi3-dz8Qs85FvwHaHa?rs=1&pid=ImgDetMain'
+          }
+          alt="user-image"
+          className="user-image"
+        />
         <div className="comment-content ms-3">
           <div
             className="d-flex flex-wrap pb-2"
