@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import useAddBlog from '../../data/hooks/newpost/useAddBlog';
 
@@ -8,17 +8,22 @@ import Swal from 'sweetalert2';
 import InputField from '../../ui/components/inputs/Input';
 
 import BlogCellsTransitionGroup from '../../ui/partials/NewPost/BlogGroupCell';
+import { BlogPreview } from '../../ui/partials/NewPost/BlogPreview';
 
 const NewPost = () => {
   const [blogCells, setBlogCells] = useState([
     { id: 1, title: '', content: '', image: File },
   ]);
+  const [blogTitle, setBlogTitle] = useState('');
+  const [blogDescription, setBlogDescription] = useState('');
   const [referenceText, setReferenceText] = useState('');
   const [references, setReferences] = useState([]);
+  const [blogPreviwOn, setBlogPreviewOn] = useState(false);
 
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isValid },
   } = useForm({ mode: 'onBlur' });
   const {
@@ -142,7 +147,7 @@ const NewPost = () => {
     const blogPostsJson = JSON.stringify(blogPosts);
     formData.append('posts', blogPostsJson);
 
-    console.log(formData)
+    //console.log(formData);
     addBlog(formData);
   };
 
@@ -152,23 +157,42 @@ const NewPost = () => {
         className="container-xxl conteudo-xxl mt-5 py-5 px-0 form-blog"
         onSubmit={handleSubmit(userPost)}
       >
-        <section>
+        <section hidden={!blogPreviwOn}>
+          <BlogPreview
+            blogCells={blogCells}
+            title={blogTitle}
+            description={blogDescription}
+          />
+        </section>
+        <section hidden={blogPreviwOn}>
           <div className="blog-header text-center">
-            <h2>Título</h2>
-            <InputField
-              label=""
-              type="text"
-              id="title"
-              placeholder=""
-              className=" py-2 px-3 fs-5"
-              registerOptions={register('title', {
+            <label className="fs-1" htmlFor="titulo">
+              Título
+            </label>
+            <Controller
+              name="title"
+              control={control}
+              defaultValue=""
+              rules={{
                 required: true,
                 pattern: {
-                  value: /^[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.,;:!? ]+$/i,
+                  value:
+                    /^[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.,;:!? ]+$/i,
                   message: 'Apenas letras, números e pontuações são permitidos',
                 },
-              })}
-              errors={errors?.title}
+              }}
+              render={({ field }) => (
+                <input
+                  type="text"
+                  className="titulo-blog"
+                  id="titulo"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    setBlogTitle(e.target.value);
+                  }}
+                  value={blogTitle}
+                />
+              )}
             />
           </div>
 
@@ -182,6 +206,13 @@ const NewPost = () => {
           />
         </section>
         <aside>
+          <button
+            type="button"
+            className="rounded-edge w-100 mb-3"
+            onClick={() => setBlogPreviewOn(!blogPreviwOn)}
+          >
+            {blogPreviwOn ? 'Voltar para Edição' : 'Visualizar'}
+          </button>
           <div className="blog-head-container blog-card">
             QUAL CATEGORIA SEU PROJETO SE ENCAIXA?
           </div>
@@ -190,20 +221,33 @@ const NewPost = () => {
             className="rounded-edge w-100 mb-3"
             disabled={false}
           >
-            { isAdding ? '...' : 'Publicar'}
+            {isAdding ? '...' : 'Publicar'}
           </button>
           <h2>Descricao</h2>
           <div className="blog-description-container blog-card">
-            <textarea
-              className="lined-input"
-              {...register('description', {
+            <Controller
+              name="description"
+              control={control}
+              defaultValue=""
+              rules={{
                 required: true,
                 pattern: {
-                  value: /^[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.,;:!? ]+$/i,
+                  value:
+                    /^[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.,;:!? ]+$/i,
                   message: 'Apenas letras, números e pontuações são permitidos',
                 },
-              })}
-            ></textarea>
+              }}
+              render={({ field }) => (
+                <textarea
+                  className="lined-input"
+                  onChange={(e) => {
+                    field.onChange(e);
+                    setBlogDescription(e.target.value);
+                  }}
+                  value={blogDescription}
+                ></textarea>
+              )}
+            />
           </div>
           <h2>Referencias</h2>
           <div className="blog-reference-container blog-card">
