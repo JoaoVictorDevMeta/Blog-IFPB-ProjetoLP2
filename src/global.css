@@ -141,3 +141,7 @@ body.swal2-shown {
   width: 200px;
   right: 30px;
 }
+
+body.no-scroll {
+  overflow: hidden;
+}

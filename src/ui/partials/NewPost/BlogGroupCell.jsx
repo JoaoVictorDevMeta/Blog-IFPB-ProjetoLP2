@@ -5,6 +5,7 @@ import { CiCirclePlus } from 'react-icons/ci';
 
 const BlogCellsTransitionGroup = ({
   blogCells,
+  setBlogCells,
   addBlogCell,
   deleteBlogCell,
   updateCellTitle, // functions to update the cells objects array
@@ -18,18 +19,18 @@ const BlogCellsTransitionGroup = ({
           <li className="blog-cell">
             <BlogCell
               cell={cell}
-              onDelete={() => deleteBlogCell(cell.id)}
-              updateTitle={(newTitle) => updateCellTitle(cell.id, newTitle)}
+              onDelete={() => deleteBlogCell(blogCells, setBlogCells, cell.id)}
+              updateTitle={(newTitle) => updateCellTitle(blogCells, setBlogCells, cell.id, newTitle)}
               updateContent={(newContent) =>
-                updateCellContent(cell.id, newContent)
+                updateCellContent(blogCells, setBlogCells, cell.id, newContent)
               }
-              updateImage={(newImage) => updateCellImage(cell.id, newImage)}
+              updateImage={(newImage) => updateCellImage(blogCells, setBlogCells, cell.id, newImage)}
             />
           </li>
         </CSSTransition>
       ))}
       <li>
-        <button className="blog-button" type="button" onClick={addBlogCell}>
+        <button className="blog-button" type="button" onClick={() => {addBlogCell(blogCells, setBlogCells,)}}>
           <CiCirclePlus className="blog-button-icon" />
           Adicionar Célula
         </button>

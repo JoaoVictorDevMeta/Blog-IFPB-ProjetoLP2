@@ -31,8 +31,8 @@ export const Card = ({ title = '', image, link, type = 'title-card' }) => {
         </div>
       ) : (
         <div className="card-category position-relative h-100 d-flex align-items-end justify-content-center">
-          <Link className="mb-5 fs-5" to={link}>
-            Informática
+          <Link className="mb-5 fs-5" to={`/blog/${link}`}>
+            {type}
           </Link>
         </div>
       )}

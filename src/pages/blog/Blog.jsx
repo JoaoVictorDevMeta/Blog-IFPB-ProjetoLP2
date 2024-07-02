@@ -32,7 +32,7 @@ const Blog = () => {
   return (
     <>
       <section className="container-xxl conteudo-xxl mt-5 py-5">
-        <Categoria categoria="Categoria" />
+        <Categoria categoria={blog?.category} />
         <Title title={blog?.title} />
         <Subtitle
           subtitle={blog?.subTitle}
