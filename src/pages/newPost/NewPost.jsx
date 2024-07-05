@@ -21,7 +21,9 @@ const NewPost = () => {
     { id: 1, title: '', content: '', image: File },
   ]);
   const [hasError, setHasError] = useState(false);
-  const [blogCellsErrors, setBlogCellsErrors] = useState([{id: 1, title: '', content:''}]);
+  const [blogCellsErrors, setBlogCellsErrors] = useState([
+    { id: 1, title: '', content: '' },
+  ]);
   const [blogTitle, setBlogTitle] = useState('');
   const [blogDescription, setBlogDescription] = useState('');
   const [referenceText, setReferenceText] = useState('');
@@ -31,8 +33,6 @@ const NewPost = () => {
   const {
     handleSubmit,
     control,
-    setError,
-    clearErrors,
     formState: { errors, isValid },
   } = useForm({ mode: 'onBlur' });
   const {
@@ -50,7 +50,7 @@ const NewPost = () => {
 
   const validateBlogCells = () => {
     let isValid = true;
-    const updatedErrors = blogCells.map(cell => {
+    const updatedErrors = blogCells.map((cell) => {
       let cellError = { id: cell.id, title: '', content: '' };
       if (cell.title.trim() === '') {
         isValid = false;
@@ -62,15 +62,17 @@ const NewPost = () => {
       }
       return cellError;
     });
-  
+
     setBlogCellsErrors(updatedErrors);
     return isValid;
   };
 
   //Submit Logic
   const userPost = (data) => {
+    setHasError(false);
     if (!validateBlogCells()) {
-      return; 
+      setHasError(true);
+      return;
     }
 
     //title and description
@@ -100,11 +102,10 @@ const NewPost = () => {
 
     //console.log(formData);
     addBlog(formData);
-    console.log("blog adicionado")
+    console.log('blog adicionado');
   };
 
   document.body.classList.toggle('no-scroll', isAdding);
-  console.log(errors)
 
   return (
     <>
@@ -134,11 +135,19 @@ const NewPost = () => {
               control={control}
               defaultValue=""
               rules={{
-                required: {value: true, message: 'Título não pode estar vazio'},
+                required: {
+                  value: true,
+                  message: 'Título do blog não pode estar vazio',
+                },
+                minLength: {
+                  value: 10,
+                  message: 'Título do blog muito pequeno',
+                },
                 pattern: {
                   value:
                     /^[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.,;:!? ]+$/i,
-                  message: 'Título: apenas letras, números e pontuações são permitidos',
+                  message:
+                    'Título: apenas letras, números e pontuações são permitidos',
                 },
               }}
               render={({ field }) => (
@@ -170,12 +179,16 @@ const NewPost = () => {
           <button
             type="button"
             className="rounded-edge w-100 mb-3"
-            onClick={() => {setBlogPreviewOn(!blogPreviwOn); setHasError(!blogPreviwOn)}}
+            onClick={() => {
+              setBlogPreviewOn(!blogPreviwOn);
+            }}
           >
             {blogPreviwOn ? 'Voltar para Edição' : 'Visualizar'}
           </button>
-          <div hidden={!hasError}>
-            <BlogErrors errors={errors} cellErrors={blogCellsErrors} />
+          <div hidden={!blogPreviwOn}>
+            {((errors && Object.keys(errors).length > 0) || hasError) && (
+              <BlogErrors errors={errors} cellErrors={blogCellsErrors} />
+            )}
           </div>
           <div hidden={blogPreviwOn}>
             <div className="blog-head-container blog-card">
@@ -188,12 +201,17 @@ const NewPost = () => {
             >
               {isAdding ? '...' : 'Publicar'}
             </button>
-            {errors && Object.keys(errors).length > 0 && <div className="alert alert-danger" role="alert">
-                Seu blog possui campos incompletos ou inválidos, por favor, corrija-os antes de publicar.
-            </div>}
-            {addError && <div className="alert alert-danger" role="alert">
+            {((errors && Object.keys(errors).length > 0) || hasError) && (
+              <div className="alert alert-danger" role="alert">
+                Seu blog possui campos incompletos ou inválidos, por favor,
+                corrija-os antes de publicar.
+              </div>
+            )}
+            {addError && (
+              <div className="alert alert-danger" role="alert">
                 Você precisa estar logado para publicar um blog.
-            </div>}
+              </div>
+            )}
             <h2>Descricao</h2>
             <div className="blog-description-container blog-card">
               <Controller
@@ -201,7 +219,14 @@ const NewPost = () => {
                 control={control}
                 defaultValue=""
                 rules={{
-                  required: {value: true, message: 'Descrição não pode estar vazia'},
+                  required: {
+                    value: true,
+                    message: 'Descrição do blog não pode estar vazia',
+                  },
+                  minLength: {
+                    value: 20,
+                    message: 'Descrição do blog muito pequena',
+                  },
                   pattern: {
                     value:
                       /^[A-Za-z0-9áàâãéèêíïóôõöúçñÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ.,;:!? ]+$/i,

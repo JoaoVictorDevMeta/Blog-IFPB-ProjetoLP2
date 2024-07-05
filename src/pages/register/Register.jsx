@@ -4,15 +4,14 @@ import { useForm } from 'react-hook-form';
 
 import InputField from '../../ui/components/inputs/Input';
 import Button from '../../ui/components/buttons/Button';
+import RegisterMessages from '../../ui/partials/Register/messages';
 import SelectField from '../../ui/components/inputs/Select';
-import { sendUser } from '../../data/services/register';
+import useRegister from '../../data/hooks/auth/useRegister';
 import { Cursos } from './Cursos';
 
 const Register = () => {
   const [curso, setCurso] = useState('');
   const [cursoError, setCursoError] = useState('');
-  const [sendResponse, setSendResponse] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -20,25 +19,15 @@ const Register = () => {
     formState: { errors },
   } = useForm({ mode: 'onBlur' });
 
-  const registerUser = async (data) => {
-    setLoading(true);
+  const { isLoading, error, data, execute } = useRegister();
 
+  const registerUser = async (data) => {
     if (!curso) {
-      setCursoError('Coloque seu Curso!');
-      return;
+      return setCursoError('Coloque seu Curso!');
     }
     data = { course: curso, ...data };
 
-    sendUser(data)
-      .then((response) => {
-        //console.log(response)
-        setSendResponse(response);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setSendResponse(error);
-        setLoading(false);
-      });
+    execute(data);
   };
 
   return (
@@ -84,7 +73,7 @@ const Register = () => {
                 minLength: 3,
                 validate: {
                   noSpecialChars: (value) =>
-                    /^[a-zA-Z0-9 ]*$/.test(value) ||
+                    /^[A-Za-z0-9]*$/.test(value) ||
                     'No special characters allowed',
                 },
               })}
@@ -139,29 +128,13 @@ const Register = () => {
             errors={errors.password}
           />
           <div className="w-100">
-            {sendResponse?.status == 201 && (
-              <div className="alert alert-success" role="alert">
-                Email de Verificação Enviado, Ir para <a href="/login">Login</a>
-              </div>
-            )}
-            {sendResponse?.status == 400 && (
-              <div className="alert alert-warning" role="alert">
-                Falha! Esse email ja está cadastrado!
-              </div>
-            )}
-            {sendResponse?.status != 400 &&
-              sendResponse?.status != 201 &&
-              sendResponse && (
-                <div className="alert alert-danger" role="alert">
-                  Algo deu Errado! Tente novamente
-                </div>
-              )}
+            <RegisterMessages error={error} data={data} />
 
             <Button
               type="outline"
               className="btn button-outline fs-4 mb-3 w-100"
             >
-              {loading ? '...' : 'Cadastrar'}
+              {isLoading ? '...' : 'Cadastrar'}
             </Button>
           </div>
         </form>

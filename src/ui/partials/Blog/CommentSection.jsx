@@ -29,7 +29,8 @@ const CommentSection = ({ children }) => {
           className="input-reply d-flex flex-wrap gap-3"
           onSubmit={handleSubmit}
         >
-          <img src={currentUser?.imageUrl} alt="" className="user-image" />
+          <img src={currentUser?.imageUrl ||
+            'https://th.bing.com/th/id/OIP.6UhgwprABi3-dz8Qs85FvwHaHa?rs=1&pid=ImgDetMain'} alt="" className="user-image" />
           <div className="comment-container position-relative">
             <textarea
               className={'input-comment ' + (isFocused ? 'focused' : '')}
