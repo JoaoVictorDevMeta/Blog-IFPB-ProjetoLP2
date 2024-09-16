@@ -7,6 +7,8 @@ export const useSearch = () => {
   const [error, setError] = useState(null);
 
   const fetchData = async (searchTerm = "", category = null, page = 1) => {
+    if (category === 'Notícia') category = "Noticia";
+    if (category === 'Outros...') category = "Outros";
     setLoading(true);
     try {
       const blogs = await fetchBlogs(searchTerm, category, page);

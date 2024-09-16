@@ -11,7 +11,7 @@ import {
 } from './functions/BlogLogic';
 
 import './NewPost.css';
-
+import Swal from 'sweetalert2';
 import BlogCellsTransitionGroup from '../../ui/partials/NewPost/BlogGroupCell';
 import { BlogPreview } from '../../ui/partials/NewPost/BlogPreview';
 import { BlogErrors } from '../../ui/partials/NewPost/BlogErrors';
@@ -29,6 +29,7 @@ const NewPost = () => {
   const [referenceText, setReferenceText] = useState('');
   const [references, setReferences] = useState([]);
   const [blogPreviwOn, setBlogPreviewOn] = useState(false);
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -38,6 +39,7 @@ const NewPost = () => {
   const {
     isLoading: isAdding,
     error: addError,
+    data: addData,
     execute: addBlog,
   } = useAddBlog();
 
@@ -101,8 +103,17 @@ const NewPost = () => {
     formData.append('posts', blogPostsJson);
 
     //console.log(formData);
-    addBlog(formData);
-    console.log('blog adicionado');
+    addBlog(formData).then(() => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Publicado com sucesso!',
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        navigate(`/blog/${addData[0].id}`); 
+      });
+    });
+    //console.log(addData);
   };
 
   document.body.classList.toggle('no-scroll', isAdding);

@@ -17,9 +17,8 @@ const useAddBlog = () => {
 
     await sleep(2000); 
     try {
-      /*const response = await addBlog(blogData, userId);
-      setData(response);*/
-      setData("OK")
+      const response = await addBlog(blogData, userId);
+      setData(response);
     } catch (err) {
       setError(err);
     } finally {

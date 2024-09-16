@@ -26,7 +26,7 @@ export const updateBlogCellImage = (blogCells, setBlogCells, id, newImage) => {
 };
 
 export const addBlogCell = (blogCells, setBlogCells) => {
-  if (blogCells.length >= 5) {
+  if (blogCells.length >= 8) {
     return Swal.fire({
       icon: 'error',
       title: 'Oops...',
